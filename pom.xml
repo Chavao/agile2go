@@ -342,12 +342,12 @@
 								<address>data-source=postgresDS</address>
 								<enableResource>true</enableResource>
 								<properties>
-									<connection-url>jdbc:postgresql://localhost:5432/postgres</connection-url>
+									<connection-url>jdbc:postgresql://127.7.68.1:5432/</connection-url>
 									<jndi-name>java:jboss/datasources/postgresDS</jndi-name>
 									<enabled>true</enabled>
 									<pool-name>postgresDS</pool-name>
-									<user-name>postgres</user-name>
-									<password>root</password>
+									<user-name>admin</user-name>
+									<password>dbHGpipbZaCe</password>
 									<driver-name>postgresql.jar</driver-name>
 								</properties>
 							</resource>
