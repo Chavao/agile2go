@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+<h:head>
+	<h:outputStylesheet name="content.css" library="css" />		
+</h:head>
+<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="body">
+
+		<h:form id="form">	
+		<h:panelGroup id="tableGroup">		
+			<p:dataTable id="dataTable" var="sprint" editable="true" paginatorPosition="bottom"
+				value="#{sprintMB.sprints}" paginator="true" rows="5" rowKey="#{sprintMB.sprint.id}"
+				rowsPerPageTemplate="5,10,15" cellpadding="3" cellspacing="3" style="width:1070px; margin-top:70px; margin-left:100px;">				  
+				<f:facet name="header">
+					<h:outputText value="Sprints" styleClass="inputDataTable" />
+				</f:facet>
+				<p:column headerText="Name" styleClass="inputDataTable">
+					<p:cellEditor>                 
+						<f:facet name="output">
+							<h:outputText value="#{sprint.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{sprint.name}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Start Date" styleClass="inputDataTable">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sprint.startDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+							</h:outputText>
+						</f:facet>
+						<f:facet name="input">
+							<p:calendar value="#{sprint.startDate}" pattern="dd/MM/yyyy" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="End Date" styleClass="inputDataTable">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sprint.endDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+							</h:outputText>
+						</f:facet>
+						<f:facet name="input">
+							<p:calendar value="#{sprint.endDate}" pattern="dd/MM/yyyy" style="width:100%" />														
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Daily Meeting Time" styleClass="inputDataTable">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sprint.dailyScrum}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{sprint.dailyScrum}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Project" styleClass="inputDataTable">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sprint.project.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{sprint.project.name}" style="width:100%" disabled="true"/>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column styleClass="dataTableOptions">	
+					<p:rowEditor>
+						<h:outputText title="edit" />
+					</p:rowEditor>
+				</p:column>				
+				<p:column styleClass="dataTableOptions">				
+					<p:commandLink onclick="confirmation2.show()">
+						<h:graphicImage value="/resources/img/editar16.png" title="update" />
+						<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />
+					</p:commandLink>
+				</p:column>
+				<p:column styleClass="dataTableOptions">
+					<p:commandLink onclick="confirmation.show()">										
+						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
+						<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />
+						<f:ajax render="@form" />												
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
+				<p:graphicImage value="/resources/img/loading.gif" />
+			</p:blockUI>			
+		</h:panelGroup>
+		</h:form>
+			<p:confirmDialog message="Are you sure do you want remove?"
+			header="remove" severity="alert" widgetVar="confirmation"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="confirmDialogSave">
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.delete}" oncomplete="confirmation.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+			</h:form>
+		</p:confirmDialog>
+		
+		<p:confirmDialog message="Are you sure do you want update?"
+			header="edit" severity="alert" widgetVar="confirmation2"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="confirmDialogEdit">
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.createOrSave}" oncomplete="confirmation2.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No" onclick="confirmation2.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+			</h:form>
+		</p:confirmDialog>
+
+	</ui:define>
+</ui:composition>
+</html>
