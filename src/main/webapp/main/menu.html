@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="titulo">agile2go</ui:insert></title>	
+	<h:outputStylesheet name="content.css" library="css" />	
+	<h:outputStylesheet name="menu.css" library="css" />	
+</h:head>
+<h:body>
+	<div id="menu">
+			<ul class="menu">
+			<li><a href="#{facesContext.externalContext.request.contextPath}/main/main.jsf" class="parent"><span>Home</span></a>
+			</li>
+				<li><a href="#" class="parent"><span>Projects</span></a>
+					<div>
+						<ul>
+							<li><a
+								href="#{facesContext.externalContext.request.contextPath}/pages/project/add_project.jsf"
+								class="parent"><span>Create</span></a></li>
+							<li><a
+								href="#{facesContext.externalContext.request.contextPath}/pages/project/list_project.jsf"
+								class="parent"><span>List Projects</span></a></li>
+						</ul>
+					</div></li>
+				<li><a href="#" class="parent"><span>Sprints</span></a>
+					<div>
+						<ul>
+							<li><a
+								href="#{facesContext.externalContext.request.contextPath}/pages/sprint/add_sprint.jsf"
+								class="parent"><span>Create</span></a></li>
+							<li><a 
+								href="#{facesContext.externalContext.request.contextPath}/pages/sprint/list_sprint.jsf"
+								class="parent"><span>List Sprints</span></a></li>
+						</ul>
+					</div></li>				
+				<li><a href="#" class="parent"><span>Tasks</span></a>
+					<div>
+						<ul>
+							<li><a
+								href="#{facesContext.externalContext.request.contextPath}/pages/task/add_task.jsf"
+								class="parent"><span>Create</span></a></li>
+							<li><a 
+								href="#{facesContext.externalContext.request.contextPath}/pages/task/list_task.jsf"
+								class="parent"><span>List Taks</span></a></li>
+						</ul>
+					</div></li>
+				<li><a href="http://localhost:8080/agile2go/login.jsf"><span>Log out</span></a></li>
+			</ul>
+		</div>
+		<div id="body">
+			<p:growl id="growl" showDetail="true" showSummary="false" />
+			<ui:insert name="body"></ui:insert>
+		</div>
+
+</h:body>
+</html>
