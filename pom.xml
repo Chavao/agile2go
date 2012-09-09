@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.1-901-1.jdbc4</version>
+			<version>8.4-702.jdbc4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
@@ -339,13 +339,13 @@
 						<configuration>
 							<address>subsystem=datasources</address>
 							<resource>
-								<address>data-source=postgresDS</address>
+								<address>data-source=postgreSQLDS</address>
 								<enableResource>true</enableResource>
 								<properties>
 									<connection-url>jdbc:postgresql://127.7.68.1:5432/</connection-url>
-									<jndi-name>java:jboss/datasources/postgresDS</jndi-name>
+									<jndi-name>java:jboss/datasources/postgreSQLDS</jndi-name>
 									<enabled>true</enabled>
-									<pool-name>postgresDS</pool-name>
+									<pool-name>postgreSQLDS</pool-name>
 									<user-name>admin</user-name>
 									<password>dbHGpipbZaCe</password>
 									<driver-name>postgresql.jar</driver-name>
