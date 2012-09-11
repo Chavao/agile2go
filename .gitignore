@@ -3,6 +3,4 @@
 .settings
 .metadata
 .gitkeep
-target/
-bin
-.git/
+target
