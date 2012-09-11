@@ -107,12 +107,12 @@
                       <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
                 	</validation>
                 </datasource>
-                <datasource jndi-name="java:jboss/datasources/PostgreSQLDS" enabled="${postgresql.enabled}" use-java-context="true" pool-name="PostgreSQLDS" use-ccm="true">
-                    <connection-url>jdbc:postgresql://${env.OPENSHIFT_DB_HOST}:${env.OPENSHIFT_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
+                <datasource jndi-name="java:jboss/datasources/PostgreSQLDS" enabled="true" use-java-context="true" pool-name="PostgreSQLDS" use-ccm="true">
+                    <connection-url>jdbc:postgresql://127.7.68.1:5432/${env.OPENSHIFT_APP_NAME}</connection-url>
                     <driver>postgresql</driver>
                     <security>
-                      <user-name>${env.OPENSHIFT_DB_USERNAME}</user-name>
-                      <password>${env.OPENSHIFT_DB_PASSWORD}</password>
+                      <user-name>admin</user-name>
+                      <password>dbHGpipbZaCe</password>
                     </security>
                     <validation>
                       <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
