@@ -1,0 +1,114 @@
+ body {
+	 /* margin:0 0 0 0;  */
+	 background-image:url(../resources/img/back2.png);
+	 /* background-repeat:repeat-x;  */
+	 /* background: -webkit-gradient(linear, left top, left bottom, from(#CCC), to(white)) repeat-X; */ 
+}
+
+
+/* JSF 
+box-shadow: 0px 1px 15px #000; */
+
+label {
+	/* margin-left: 70px; */
+	font-weight: bold; 
+	color: #000;
+	font-family: Ubuntu;
+	font-size: 16px;
+}
+
+#content {
+	position: absolute;
+	z-index: 10;
+	top: 55px;
+	left: 42%;
+}
+
+.head h1 {
+	font-family: Ubuntu;
+	font-size: 25px;
+}
+
+.image {
+	position: absolute;
+	z-index: 1;
+}
+
+.head {}
+
+.conteudo {
+	width:400px;
+	height:379px;
+	position:relative;
+	margin:0 auto;	
+}
+
+.login {
+	width:400px;
+	height:310px;
+	float: left;
+	position:relative;
+	background-image: url(../lib/img/login.png);
+	background-repeat:no-repeat;
+	top:80px;	
+}
+
+.inputs {
+	width: 40px
+	position:relative;
+	top:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	padding-top:40px;
+}
+
+.inp {
+	width:190px;
+	height:30px;
+	background-image:url(../resources/img/fundoinput.png);
+	background-repeat:no-repeat;
+	border:none;
+	padding-left:5px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+.btAction {	
+	margin-right:50px;
+}
+
+.dataTable {	
+	margin-left: 174px;
+	margin-right: 200px;
+	margin-top: 100px;
+	
+	/* width:1070px; margin-top:70px; margin-left:100px; */	
+}
+
+.inputDataTable {
+	width:50px;
+	font-family:ubuntu;
+	font-size:16px;"
+}
+
+.dataTableOptions {
+	width:1px;
+	font-family:ubuntu;
+	font-size:0px;
+	text-align:center;
+}
+
+
+.formulario {
+	margin-left:56px;
+	margin-top:75px;
+}
+
+
+/* .details {
+background-image:url(../resources/img/back2.png);
+width: 887px !important;
+border: 1px solid #EEE;
+border-radius: 7px;
+padding: 50px 0px 0;
+margin-bottom: 20px;
+} */

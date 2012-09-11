@@ -1,0 +1,65 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"	
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+<h:head>
+	<h:outputStylesheet name="content.css" library="css" />
+</h:head> 
+<body> 
+	<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="body">
+
+			<h:form id="form">
+				<h:panelGrid id="panelGrid" columns="1" cellpadding="3" cellspacing="3" styleClass="formulario">
+					<h:panelGrid cellpadding="0" cellspacing="0">
+						<h:outputLabel value="&nbsp;Name" />
+						<p:inputText id="name" value="#{sprintMB.sprint.name}" size="35" style="width:335px;" />						
+					</h:panelGrid>
+					<h:panelGrid cellpadding="0" cellspacing="0">
+						<h:outputLabel value="&nbsp;Project" />
+						<p:autoComplete id="project" value="#{sprintMB.sprint.project}" converter="#{projectConverter}"
+							completeMethod="#{sprintMB.completeProject}" var="p" itemValue="#{p}" itemLabel="#{p.name}" minQueryLength="3"
+							maxResults="5" queryDelay="500" required="true" requiredMessage="project is a required field"
+							size="38" style="width:305px;">
+							<p:column>
+								<div style="text-align: left;">
+									name:#{p.name} - deadline:
+									<h:outputText value="#{p.lastDate}">
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+									</h:outputText>
+								</div>
+							</p:column>							
+						</p:autoComplete>													
+					</h:panelGrid>
+					<h:panelGrid cellpadding="0" cellspacing="0">
+						<h:outputLabel value="&nbsp;Start Date" />
+						<p:calendar id="data" pattern="dd/MM/yyyy" required="true"
+							requiredMessage="start date is a required field"
+							value="#{sprintMB.sprint.startDate}" showOn="button" size="33" />						
+					</h:panelGrid>
+					<h:panelGrid cellpadding="0" cellspacing="0">
+						<h:outputLabel  value="&nbsp;End Date" />
+						<p:calendar id="data2" pattern="dd/MM/yyyy" required="true"
+							requiredMessage="end date is a required field"
+							value="#{sprintMB.sprint.endDate}" showOn="button" size="33" />						
+					</h:panelGrid>
+					<h:panelGrid cellpadding="0" cellspacing="0">
+						<h:outputLabel value="&nbsp;Goal" />
+						<p:inputTextarea id="goal" value="#{sprintMB.sprint.goal}" size="68" style="width:335px; height:42px;" />
+					</h:panelGrid>
+					<h:panelGrid cellpadding="0" cellspacing="0">
+						<h:outputLabel value="&nbsp;Daily Scrum" />
+						<p:inputMask id="meet" mask="99:99" value="#{sprintMB.sprint.dailyScrum}" size="10" />						
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<p:commandButton id="saveBtn" value="Save" action="#{sprintMB.createOrSave}" update="@form :growl" style="margin-left:80px;font-family:Ubuntu;font-size:16px;" />
+									
+			</h:form>
+		</ui:define>
+</ui:composition>
+	
+</body> 
+</html>

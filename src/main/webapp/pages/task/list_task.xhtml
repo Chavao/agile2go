@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet name="content.css" library="css" />
+</h:head>
+<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="body">
+
+		<h:form id="form">
+			<h:panelGroup id="tableGroup">
+				<p:dataTable id="dataTable" var="task" editable="true"
+					paginatorPosition="bottom" value="#{taskMB.tasks}" paginator="true"
+					rows="5" rowsPerPageTemplate="5,10,15" cellpadding="3" style="width:1070px; margin-top:70px; margin-left:100px;"
+					cellspacing="3" styleClass="dataTable">
+					<f:facet name="header">
+						<h:outputText value="Tasks" styleClass="inputDataTable" />
+					</f:facet>
+					<p:column headerText="User Story" styleClass="inputDataTable">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{task.storie}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{task.storie}" style="width: 100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Priority" styleClass="inputDataTable">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{task.priority}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{task.priority}" style="width: 100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Status" styleClass="inputDataTable">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{task.status.description}" style="width:120px;" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{taskMB.task.status}" converter="#{statusConverter}" disabled="true">
+									<f:selectItems value="#{taskMB.taskItems}" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Deadline" styleClass="inputDataTable">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{task.hours}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{task.hours}" style="width: 100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Sprint" styleClass="inputDataTable">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{task.sprint.name}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{task.sprint.name}" style="width: 100%" disabled="true" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column styleClass="dataTableOptions">
+						<p:rowEditor>
+							<h:outputText title="edit" />
+						</p:rowEditor>
+					</p:column>
+					<p:column styleClass="dataTableOptions">
+						<p:commandLink onclick="confirmation2.show()">
+							<h:graphicImage value="/resources/img/editar16.png"
+								title="update" />
+							<f:setPropertyActionListener target="#{taskMB.task}"
+								value="#{task}" />
+						</p:commandLink>
+					</p:column>
+					<p:column styleClass="dataTableOptions">
+						<p:commandLink onclick="confirmation.show()">
+							<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
+							<f:setPropertyActionListener target="#{taskMB.task}" value="#{task}" />
+							<f:ajax render="@form" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
+					<p:graphicImage value="/resources/img/loading.gif" />
+				</p:blockUI>
+			</h:panelGroup>
+		</h:form>
+
+		<p:confirmDialog message="Are you sure do you want remove?"
+			header="remove" severity="alert" widgetVar="confirmation"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="confirmDialogSave">
+				<p:commandButton value="Yes" update=":form:tableGroup :growl"
+					actionListener="#{taskMB.delete}" oncomplete="confirmation.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No" onclick="confirmation.hide()"
+					type="button" style="font-family:Ubuntu;font-size:16px;" />
+			</h:form>
+		</p:confirmDialog>
+
+		<p:confirmDialog message="Are you sure do you want update?"
+			header="edit" severity="alert" widgetVar="confirmation2"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="confirmDialogEdit">
+				<p:commandButton value="Yes" update=":form:tableGroup :growl"
+					actionListener="#{taskMB.createOrSave}"
+					oncomplete="confirmation2.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No" onclick="confirmation2.hide()"
+					type="button" style="font-family:Ubuntu;font-size:16px;" />
+			</h:form>
+		</p:confirmDialog>
+	</ui:define>
+</ui:composition>
+</html>
