@@ -4,3 +4,6 @@
 .metadata
 .gitkeep
 target
+!deployments
+!.openshift
+!.gitignore
