@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.RollbackException;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.jboss.solder.exception.control.ExceptionToCatch;
 import org.jboss.solder.logging.Logger;
 
