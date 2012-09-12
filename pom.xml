@@ -20,12 +20,13 @@
 	</properties>
 
 	<dependencies>
-
-		<!-- <dependency>
+	
+		<!-- comment this when openshift is being used -->
+		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>8.4-702.jdbc4</version>
-		</dependency> -->
+		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -317,7 +318,9 @@
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
 				<version>7.1.1.Final</version>
-				<!-- <executions>				
+				
+				<!-- comment this when openshift is being used -->
+				<executions>				
 					<execution>
 						<id>deploy-driver</id>
 						<phase>package</phase>
@@ -339,21 +342,21 @@
 						<configuration>
 							<address>subsystem=datasources</address>
 							<resource>
-								<address>data-source=postgreSQLDS</address>
+								<address>data-source=postgresDS</address>
 								<enableResource>true</enableResource>
 								<properties>
-									<connection-url>jdbc:postgresql://127.7.68.1:5432/</connection-url>
-									<jndi-name>java:jboss/datasources/postgreSQLDS</jndi-name>
+									<connection-url>jdbc:postgresql://localhost:5432/postgres</connection-url>
+									<jndi-name>java:jboss/datasources/postgresDS</jndi-name>
 									<enabled>true</enabled>
-									<pool-name>postgreSQLDS</pool-name>
-									<user-name>admin</user-name>
-									<password>dbHGpipbZaCe</password>
+									<pool-name>postgresDS</pool-name>
+									<user-name>postgres</user-name>
+									<password>root</password>
 									<driver-name>postgresql.jar</driver-name>
 								</properties>
 							</resource>
 						</configuration>
 					</execution>
-				</executions> -->
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
