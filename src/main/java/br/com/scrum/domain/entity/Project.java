@@ -26,7 +26,8 @@ import br.com.scrum.domain.entity.enums.Const;
 @Table(name = "PROJECT", schema = Const.SCHEMA, uniqueConstraints = {
 		@UniqueConstraint(columnNames = {"NAME"})})
 @NamedQueries({
-	@NamedQuery(name = "Project.getByName", query = "from Project p where upper(p.name) like ?")	
+	@NamedQuery(name = "Project.getByName", query = "from Project p where upper(p.name) like ?"),
+	@NamedQuery(name = "Project.countByName", query = "select count(*) from Project p where upper(p.name) like ?")
 	})
 public class Project implements Serializable 
 {	

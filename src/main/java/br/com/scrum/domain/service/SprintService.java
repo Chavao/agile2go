@@ -14,21 +14,29 @@ import org.jboss.solder.logging.Logger;
 import br.com.scrum.application.util.Assert;
 import br.com.scrum.domain.entity.Sprint;
 import br.com.scrum.infrastructure.dao.PersistenceUtil;
+import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
 public class SprintService extends PersistenceUtil implements Serializable 
 {
 	@Inject private Event<ExceptionToCatch> exception;
 	@Inject private Logger logger;
 	
-	public void create(Sprint sprint) 
+	public void create(Sprint sprint) throws Exception 
 	{
 		try {
+			if (exists(sprint)) {
+				throw new BusinessException("sprint already exists");
+			}
 			super.create(sprint);			
-		} catch ( ConstraintViolationException cve ) {
-			exception.fire(new ExceptionToCatch(cve.getCause()));
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 	
+	private boolean exists(Sprint sprint) {
+		return !searchBy(sprint.getName()).isEmpty();
+	}
+
 	public void save(Sprint sprint) 
 	{
 		try {

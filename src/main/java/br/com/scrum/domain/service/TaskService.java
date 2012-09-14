@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.jboss.solder.logging.Logger;
 
 import br.com.scrum.domain.entity.Task;
@@ -15,23 +14,21 @@ public class TaskService extends PersistenceUtil implements Serializable
 {
 	@Inject private Logger logger;
 	
-	public void create(Task task) 
+	public void create(Task task) throws Exception 
 	{
 		try {
 			super.create(task);				
-		} catch ( ConstraintViolationException cve ) {
-			logger.error(cve.getCause().getLocalizedMessage());
-			throw cve;	
+		} catch (Exception e ) {
+			throw e;	
 		}
 	}
 	
-	public void save(Task task) 
+	public void save(Task task) throws Exception 
 	{
 		try {
 			super.save(task);				
-		} catch ( ConstraintViolationException cve ) {
-			logger.error(cve.getCause().getLocalizedMessage());
-			throw cve;	
+		} catch (Exception e) {
+			throw e;	
 		}
 	}
 	

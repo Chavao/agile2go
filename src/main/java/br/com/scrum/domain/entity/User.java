@@ -21,12 +21,16 @@ import br.com.scrum.domain.entity.enums.UserRole;
 
 @Entity
 @Table(name = "USER", schema = Const.SCHEMA, uniqueConstraints = {
-		@UniqueConstraint(columnNames = "NAME")})
+		@UniqueConstraint(columnNames = "LOGIN")
+		})
 @NamedQueries({
 	@NamedQuery(name = "User.getByLogin", query = "from User u where u.login = ? and u.password = ? ")
 })
 public class User implements Serializable
 {	
+	public static final String LOGIN = "login";
+	public static final String PASSWORD = "password";
+	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")

@@ -8,13 +8,13 @@ import javax.enterprise.event.Event;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.RollbackException;
 
+import org.jboss.logging.Logger;
 import org.jboss.solder.exception.control.ExceptionToCatch;
-import org.jboss.solder.logging.Logger;
 
 import br.com.scrum.domain.entity.Project;
 import br.com.scrum.domain.service.ProjectService;
+import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
 @Named
 @ViewScoped
@@ -29,9 +29,8 @@ public class ProjectMB extends BaseBean implements Serializable
 	
 	public void createOrSave() 
 	{
-		try 
-		{			
-			if ( project.getId() == null ) {
+		try {			
+			if (project.getId() == null) {
 				projectService.create(project);
 				project = new Project();
 				addInfoMessage("project successfully created");
@@ -39,11 +38,10 @@ public class ProjectMB extends BaseBean implements Serializable
 				projectService.save(project);
 				addInfoMessage("project successfully updated");
 			}
-		} catch ( RollbackException cve ) {
-			logger.error(cve);
-			addErrorMessage(null, "project already exist");	
+		} catch (BusinessException be) {
+			addErrorMessage(null, be.getMessage().toString());	
 		} catch ( Exception e ) {
-			logger.error(e);
+			e.printStackTrace();
 			addErrorMessage("unexcepted error has ocurred");
 		}
 	}
