@@ -12,8 +12,8 @@
 //import org.junit.runner.RunWith;
 //
 //import br.com.scrum.domain.entity.User;
-//import br.com.scrum.domain.entity.enums.UserRole;
-//import br.com.scrum.domain.service.UserService;
+//import br.com.scrum.entity.enums.UserRole;
+//import br.com.scrum.service.UserService;
 //
 //@RunWith(Arquillian.class)
 //public class UserTest 

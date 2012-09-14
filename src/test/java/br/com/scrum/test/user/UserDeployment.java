@@ -3,9 +3,9 @@
 //import org.jboss.shrinkwrap.api.spec.WebArchive;
 //
 //import br.com.scrum.domain.entity.User;
-//import br.com.scrum.domain.entity.enums.UserRole;
-//import br.com.scrum.domain.service.UserService;
-//import br.com.scrum.infrastructure.dao.PersistenceUtil;
+//import br.com.scrum.entity.enums.UserRole;
+//import br.com.scrum.service.UserService;
+//import br.com.scrum.dao.PersistenceUtil;
 //import br.com.scrum.test.Agile2GoDeployment;
 //
 //public class UserDeployment

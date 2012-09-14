@@ -19,12 +19,12 @@ package br.com.scrum.test.sprint;
 //
 //import br.com.scrum.domain.entity.Project;
 //import br.com.scrum.domain.entity.Sprint;
-//import br.com.scrum.domain.entity.enums.Const;
+//import br.com.scrum.entity.enums.Const;
 //import br.com.scrum.test.ProjectRepository;
 //import br.com.scrum.test.SprintRepository;
-//import br.com.scrum.domain.service.ProjectService;
-//import br.com.scrum.domain.service.SprintService;
-//import br.com.scrum.infrastructure.dao.exception.NoResultExceptionHandler;
+//import br.com.scrum.service.ProjectService;
+//import br.com.scrum.service.SprintService;
+//import br.com.scrum.util.exception.NoResultExceptionHandler;
 //
 //public class SprintTestRepository {
 //

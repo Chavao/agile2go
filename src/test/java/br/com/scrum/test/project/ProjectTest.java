@@ -20,17 +20,17 @@ package br.com.scrum.test.project;
 //import br.com.scrum.domain.entity.Sprint;
 //import br.com.scrum.domain.entity.Task;
 //import br.com.scrum.domain.entity.User;
-//import br.com.scrum.domain.entity.enums.Status;
+//import br.com.scrum.entity.enums.Status;
 //import br.com.scrum.test.ProjectRepository;
 //import br.com.scrum.test.SprintRepository;
 //import br.com.scrum.test.TaskRepository;
 //import br.com.scrum.test.UserRepository;
-//import br.com.scrum.domain.service.ProjectService;
-//import br.com.scrum.domain.service.SprintService;
-//import br.com.scrum.domain.service.TaskService;
-//import br.com.scrum.domain.service.AuthenticationMB;
-//import br.com.scrum.infrastructure.dao.exception.NoResultExceptionHandler;
-//import br.com.scrum.infrastructure.factory.EntityManagerFactoryProducer;
+//import br.com.scrum.service.ProjectService;
+//import br.com.scrum.service.SprintService;
+//import br.com.scrum.service.TaskService;
+//import br.com.scrum.service.AuthenticationMB;
+//import br.com.scrum.util.exception.NoResultExceptionHandler;
+//import br.com.scrum.factory.EntityManagerFactoryProducer;
 //
 //public class ProjectTestRepository {
 //	

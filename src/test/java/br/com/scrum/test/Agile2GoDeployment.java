@@ -4,7 +4,7 @@
 //import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 //import org.jboss.shrinkwrap.api.spec.WebArchive;
 //
-//import br.com.scrum.infrastructure.factory.Resources;
+//import br.com.scrum.factory.Resources;
 //
 //public class Agile2GoDeployment
 //{
