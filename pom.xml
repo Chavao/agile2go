@@ -5,6 +5,7 @@
 	<artifactId>agile2go</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
+
 	<name>agile2go</name>
 
 	<description>Agile2Go is a Bug Tracking made in Java and the most recently frameworks.</description>
