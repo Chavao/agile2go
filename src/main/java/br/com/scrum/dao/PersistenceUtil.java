@@ -10,8 +10,6 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import br.com.scrum.controller.util.Assert;
-
 public abstract class PersistenceUtil implements Serializable
 {
 	@Inject protected EntityManager getEntityManager;
@@ -98,10 +96,6 @@ public abstract class PersistenceUtil implements Serializable
 		return query.getResultList();
 	}
 	
-	protected <T> boolean exists(final String namedQueryName, final Object... params) {
-		return !findUniqueByNamedQuery(namedQueryName, params).equals("");
-	}
-
 	protected Class<?> getObjectClass(final Object type) throws IllegalArgumentException
 	{
 		Class<?> clazz = null;

@@ -14,7 +14,7 @@ public class Resources {
 	@ExtensionManaged
 	@Produces
 	@ConversationScoped
-	@PersistenceUnit(name = "scrum")
+	@PersistenceUnit(name="scrum")
 	EntityManagerFactory producerField;
 
 	@Produces

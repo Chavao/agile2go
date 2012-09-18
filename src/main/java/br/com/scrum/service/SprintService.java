@@ -3,13 +3,8 @@ package br.com.scrum.service;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 import javax.persistence.NoResultException;
-
-import org.hibernate.exception.ConstraintViolationException;
-import org.jboss.solder.exception.control.ExceptionToCatch;
-import org.jboss.solder.logging.Logger;
+import javax.persistence.TypedQuery;
 
 import br.com.scrum.controller.util.Assert;
 import br.com.scrum.dao.PersistenceUtil;
@@ -18,13 +13,11 @@ import br.com.scrum.util.exception.BusinessException;
 
 public class SprintService extends PersistenceUtil implements Serializable 
 {
-	@Inject private Event<ExceptionToCatch> exception;
-	@Inject private Logger logger;
-	
 	public void create(Sprint sprint) throws Exception 
 	{
 		try {
-			if (exists(sprint)) {
+			Sprint exist = exists(sprint.getName());
+			if (exist != null && !exist.equals("")) {
 				throw new BusinessException("sprint already exists");
 			}
 			super.create(sprint);			
@@ -33,16 +26,24 @@ public class SprintService extends PersistenceUtil implements Serializable
 		}
 	}
 	
-	private boolean exists(Sprint sprint) {
-		return !searchBy(sprint.getName()).isEmpty();
+	private Sprint exists(String name)
+	{
+		TypedQuery<Sprint> query = getEntityManager.createQuery("from Sprint s where s.name = :name", Sprint.class);
+		query.setParameter(Sprint.NAME, name);
+		try {
+			return query.getSingleResult();
+		}
+		catch (NoResultException e) {
+			return null;
+		}
 	}
 
-	public void save(Sprint sprint) 
+	public void save(Sprint sprint) throws Exception
 	{
 		try {
 			super.save(sprint);			
-		} catch ( ConstraintViolationException cve) {
-			exception.fire(new ExceptionToCatch(cve.getCause()));
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 	
@@ -66,10 +67,9 @@ public class SprintService extends PersistenceUtil implements Serializable
 		try {
 			return super.findByNamedQuery("Sprint.getByName", query.toUpperCase());
 		} catch (NoResultException nre) {
-			exception.fire(new ExceptionToCatch(nre));
-			logger.error("No sprint found with paramters [" + query + "]", nre);
+			System.out.println("No sprint found with paramters [" + query + "] " + nre);
 		} catch (Exception e) {
-			logger.error("Error fetching the sprint " + e);
+			System.out.println("Error fetching the sprint " + e);
 		}
 		return null;
 	}

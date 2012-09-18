@@ -18,26 +18,35 @@ public class UserService extends PersistenceUtil implements Serializable {
 	
 	public void create(User user) 
 	{
-		try {
+		try
+		{
 			super.create(user);			
-		} catch ( PersistenceException pe ) {
+		}
+		catch (PersistenceException pe)
+		{
 			exception.fire(new ExceptionToCatch(pe));
 		}
 	}
 	
 	public void save(User user) 
 	{
-		try {
+		try
+		{
 			super.save(user);				
-		} catch ( PersistenceException pe ) {
+		}
+		catch (PersistenceException pe)
+		{
 			exception.fire(new ExceptionToCatch(pe));	
 		}
 	} 
 	
 	public User getUserByCredential(String username, String password) {
-		try {
+		try
+		{
 			return super.findUniqueByNamedQuery("User.getByLogin", username, password);
-		} catch (NoResultException e) {
+		}
+		catch (NoResultException e)
+		{
 			exception.fire(new ExceptionToCatch(e));
 			return null;
 		}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 import br.com.scrum.controller.util.Assert;
 import br.com.scrum.dao.PersistenceUtil;
@@ -15,12 +16,25 @@ public class ProjectService extends PersistenceUtil implements Serializable
 	public void create(Project project) throws Exception 
 	{
 		try {
-			if (exists("Project.countByName", project.getName())) {
+			Project exist = exists(project.getName());
+			if (exist != null && !exist.equals("")) {
 				throw new BusinessException("project already exists");
 			}
 			super.create(project);			
 		} catch (Exception e) {
 			throw e;
+		}
+	}
+
+	private Project exists(String name)
+	{
+		TypedQuery<Project> query = getEntityManager.createQuery("from Project p where p.name = :name", Project.class);
+		query.setParameter("name", name);
+		try {
+			return query.getSingleResult();
+		}
+		catch (NoResultException e) {
+			return null;
 		}
 	}
 

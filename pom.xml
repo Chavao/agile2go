@@ -27,7 +27,7 @@
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>8.4-702.jdbc4</version>
-		</dependency> -->
+		</dependency> --> 
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -357,7 +357,7 @@
 							</resource>
 						</configuration>
 					</execution>
-				</executions> -->
+				</executions> --> 
 			</plugin>
 		</plugins>
 	</build>
