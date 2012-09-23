@@ -48,8 +48,15 @@ label {
 	height:310px;
 	float: left;
 	position:relative;
-	background-image: url(../lib/img/login.png);
 	background-repeat:no-repeat;
+	top:80px;	
+}
+
+.imgLogin {
+	width:400px;
+	height:310px;
+	margin-left:0px; ;
+	background-image: url(../resources/img/trac-scrum-burndown-plugin-logo1.png);
 	top:80px;	
 }
 
