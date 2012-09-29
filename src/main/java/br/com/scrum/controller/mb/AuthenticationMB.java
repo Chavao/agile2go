@@ -16,7 +16,6 @@ import org.jboss.seam.security.Authenticator;
 import org.jboss.seam.security.BaseAuthenticator;
 import org.jboss.seam.security.CredentialsImpl;
 import org.jboss.seam.security.Identity;
-import org.jboss.solder.logging.Logger;
 import org.picketlink.idm.impl.api.PasswordCredential;
 import org.picketlink.idm.impl.api.model.SimpleUser;
 
@@ -30,13 +29,12 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 	@Inject private UserService userService;
 	@Inject private CredentialsImpl credentials;
 	@Inject private Identity identity;
-	@Inject private Logger logger;
 	@Inject private Event<User> loginEventSrc;
+	@Inject private FacesContext facesContext;
 
 	@Override
 	public void authenticate()
 	{
-		logger.info("Logging in " + credentials.getUsername());
 		User user = userService.getUserByCredential(credentials.getUsername(), credentials.getPassword());
 		if (user != null && credentials.getCredential() instanceof PasswordCredential && 
 			user.getPassword().equals(((PasswordCredential) credentials.getCredential()).getValue())) 
@@ -53,12 +51,13 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 		redirectToLoginIfNotLoggedIn();
 	}
 
-//	public void logout() {
-//		String userKey = identity.getUser().getKey();
-//		identity.setAuthenticatorClass(IdmAuthenticator.class);
-//		identity.logout();
-//		logger.info("User logged out " + userKey);
-//	}
+	public void logout()
+	{
+		identity.setAuthenticatorClass(AuthenticationMB.class);
+		identity.logout();
+		facesContext.getExternalContext().setResponseContentType("/index.html");
+		return;
+	}
 
 	@Override
 	public AuthenticationStatus getStatus() 
@@ -86,9 +85,8 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		try {
 			externalContext.redirect(externalContext.getRequestContextPath() + viewId);
-		} catch (IOException e) {
-			logger.error(e.getCause().getMessage());
-		}
+		} catch (IOException e)
+		{ e.printStackTrace(); }
 	}
 	
 	public void addLoginErrorMessage(String infoMessage) 

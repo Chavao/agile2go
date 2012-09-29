@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.enterprise.event.Event;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.logging.Logger;
-import org.jboss.solder.exception.control.ExceptionToCatch;
 
 import br.com.scrum.entity.Project;
 import br.com.scrum.service.ProjectService;
@@ -22,7 +20,6 @@ public class ProjectMB extends BaseBean implements Serializable
 {		
 	@Inject private Logger logger;
 	@Inject private ProjectService projectService;
-	@Inject private Event<ExceptionToCatch> exception;
 	
 	private Project project = new Project();
 	private List<Project> projects;

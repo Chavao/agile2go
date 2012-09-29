@@ -13,7 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 public abstract class PersistenceUtil implements Serializable
 {
 	@Inject protected EntityManager getEntityManager;
-
+	
 	protected <T> void create(final T entity)
 	{
 		getEntityManager.persist(entity);

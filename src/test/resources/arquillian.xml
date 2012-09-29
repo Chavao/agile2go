@@ -16,7 +16,7 @@
    <container qualifier="jboss" default="true">
       <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
       <configuration>
-         <property name="jbossHome">/home/rafael/Development/Servers/AS7_HOME</property>
+         <property name="jbossHome">/home/rafael/development/AS7_HOME-7.1.1/</property>
       </configuration>
    </container>
 

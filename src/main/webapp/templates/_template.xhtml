@@ -5,9 +5,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title><ui:insert name="titulo">agile2go</ui:insert></title>	
-	<h:outputStylesheet name="content.css" library="css" />	
-	<h:outputStylesheet name="menu.css" library="css" />	
+	<title><ui:insert name="titulo">agile2go</ui:insert></title>  	
+	<h:outputStylesheet name="content.css" library="css" /> 	
+	<h:outputStylesheet name="menu.css" library="css" /> 	
 </h:head>
 <h:body>
 	<div id="menu">
@@ -47,7 +47,15 @@
 								class="parent"><span>List Taks</span></a></li>
 						</ul>
 					</div></li>
-				<li><a href="http://agile2go-dejesus.rhcloud.com/"><span>Log out</span></a></li>
+				<li><a href="#" class="parent"><span>Kanban</span></a>
+					<div>
+						<ul>
+							<li><a
+								href="#{facesContext.externalContext.request.contextPath}/pages/kanban/taskboard.jsf"
+								class="parent"><span>Dashboard</span></a></li>
+						</ul>
+					</div></li>
+				<li><a href="#{authenticationMB.logout}"><span>Log out</span></a></li>
 			</ul>
 		</div>
 		<div id="body">
