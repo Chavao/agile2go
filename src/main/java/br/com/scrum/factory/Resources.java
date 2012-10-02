@@ -1,29 +1,29 @@
 package br.com.scrum.factory;
 
-import java.lang.reflect.ParameterizedType;
-
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 import org.jboss.logging.Logger;
+import org.jboss.solder.core.ExtensionManaged;
 
 public class Resources {
 
 
 	//production
-	//		@Produces
-	//		@ExtensionManaged
-	//		@ConversationScoped
-	//		@PersistenceUnit(name="scrum")
-	//		EntityManagerFactory producerField;
+	@Produces
+	@ExtensionManaged
+	@ConversationScoped
+	@PersistenceUnit(name="scrum")
+	EntityManagerFactory producerField;
 
 	// tests
-	@SuppressWarnings("unused")
-	@Produces
-	@PersistenceContext(unitName = "primary")
-	private EntityManager em;
+//	@SuppressWarnings("unused")
+//	@Produces
+//	@PersistenceContext(unitName = "primary")
+//	private EntityManager em;
 
 	@Produces
 	public Logger produceLog(InjectionPoint injectionPoint) {

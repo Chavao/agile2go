@@ -20,7 +20,7 @@ public class ProjectService extends PersistenceUtil implements Serializable
 			if (exist != null && !exist.equals("")) {
 				throw new BusinessException("project already exists");
 			}
-			super.create(project);			
+			create(project);			
 		} catch (Exception e) {
 			throw e;
 		}
@@ -41,7 +41,7 @@ public class ProjectService extends PersistenceUtil implements Serializable
 	public void save(Project project) throws Exception 
 	{	
 		try {
-			super.save(project);				
+			save(project);				
 		} catch (Exception e ) {
 			throw e;	
 		}
@@ -49,7 +49,7 @@ public class ProjectService extends PersistenceUtil implements Serializable
 
 	public void delete(Project project) 
 	{
-		super.delete(super.getEntityManager.getReference(Project.class, project.getId()));				
+		delete(super.getEntityManager.getReference(Project.class, project.getId()));				
 	}
 
 	public Project withId(Integer id) 
@@ -59,14 +59,14 @@ public class ProjectService extends PersistenceUtil implements Serializable
 
 	public List<Project> findAll() 
 	{
-		return super.findAll(Project.class);
+		return findAll(Project.class);
 	}		
 
 	public List<Project> searchBy(String name) 
 	{
 		Assert.notNull(name, "query was null");
 		try {
-			return super.findByNamedQuery("Project.getByName", name.toUpperCase());
+			return findByNamedQuery("Project.getByName", name.toUpperCase());
 		} catch (NoResultException nre) {
 			return null;
 		}

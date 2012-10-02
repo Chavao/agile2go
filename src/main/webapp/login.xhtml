@@ -12,19 +12,25 @@
 	<div class="conteudo">
 		 <div class="login">
 			
-			<h:form id="form" rendered="#{not identity.loggedIn}">
+			<h:form id="form">
 			<p:growl id="growl" life="5000" showSummary="true" showDetail="false" />						
 				<div class="inputs">
-					<h:panelGrid style="margin-left: 80px;">
-						<h:outputLabel value="Sign In" style="margin-left: 68px;"/>
-						<p:inputText value="#{credentials.username}" required="true" requiredMessage="sign in is a required type" style="width:190px;height:30px;"/>						
-						
+					<p:panelGrid style="margin-left: 80px;">
+						<h:outputLabel value="Sign In" style="margin-left: 68px;" />
+						<p:inputText value="#{credentials.username}"
+							required="true"
+							requiredMessage="sign in is a required type"
+							style="width:190px;height:30px;" />
 						<h:outputLabel value="Password" style="margin-left: 68px;" />
-						<p:password value="#{credentials.password}" required="true" requiredMessage="password is a required type" style="width:190px;height:30px;"  />
-
-						<p:commandButton action="#{authenticationMB.authenticate()}" value="Login" update="@form growl" 
-						                 style="margin-left:61px; font-family:Ubuntu;font-size:16px;"/>
-					</h:panelGrid>
+						<p:password value="#{credentials.password}"
+							required="true"
+							requiredMessage="password is a required type"
+							style="width:190px;height:30px;" />
+						<p:commandButton action="#{authenticationMB.authenticate()}"
+							value="Login"
+							update="@form growl" 
+						    style="margin-left:61px; font-family:Ubuntu;font-size:16px;"/>
+					</p:panelGrid>						
 				</div>
 			</h:form>
 		</div>

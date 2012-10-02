@@ -3,6 +3,7 @@ package br.com.scrum.controller.mb;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.faces.application.FacesMessage;
@@ -12,7 +13,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.security.Authenticator;
 import org.jboss.seam.security.BaseAuthenticator;
 import org.jboss.seam.security.CredentialsImpl;
 import org.jboss.seam.security.Identity;
@@ -24,14 +24,18 @@ import br.com.scrum.service.UserService;
 
 @Named
 @SessionScoped
-public class AuthenticationMB extends BaseAuthenticator implements Authenticator, Serializable 
+public class AuthenticationMB extends BaseAuthenticator implements Serializable 
 {	
 	@Inject private UserService userService;
 	@Inject private CredentialsImpl credentials;
 	@Inject private Identity identity;
-	@Inject private Event<User> loginEventSrc;
-	@Inject private FacesContext facesContext;
-
+	@Inject private Event<User> loginEvent;
+	
+	@PostConstruct
+	public void init() {
+		System.out.println("passed");
+	}
+	
 	@Override
 	public void authenticate()
 	{
@@ -39,10 +43,10 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 		if (user != null && credentials.getCredential() instanceof PasswordCredential && 
 			user.getPassword().equals(((PasswordCredential) credentials.getCredential()).getValue())) 
 		{
-			loginEventSrc.fire(user);
-			super.setStatus(AuthenticationStatus.SUCCESS);
+			loginEvent.fire(user);
+			setStatus(AuthenticationStatus.SUCCESS);
 			identity.addRole(credentials.getUsername(), "USERS", "GROUP");
-			super.setUser(new SimpleUser(user.getLogin()));
+			setUser(new SimpleUser(user.getLogin()));
 			redirectToViewId("/main/main.jsf");
 			return;
 		}
@@ -55,7 +59,7 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 	{
 		identity.setAuthenticatorClass(AuthenticationMB.class);
 		identity.logout();
-		facesContext.getExternalContext().setResponseContentType("/index.html");
+		redirectToViewId("/index.html");
 		return;
 	}
 
@@ -64,7 +68,7 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 	{
 		return super.getStatus();
 	}
-
+	
 	public boolean isLoggedIn() 
 	{
 		return getStatus().equals(AuthenticationStatus.SUCCESS);

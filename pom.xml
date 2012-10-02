@@ -321,7 +321,7 @@
 				<version>7.1.1.Final</version>
 				
 				<!-- comment this when openshift is being used -->
-				<executions>				
+				<executions>		
 					<execution>
 						<id>deploy-driver</id>
 						<phase>package</phase>
@@ -358,7 +358,7 @@
 						</configuration>
 					</execution>
 				</executions> 
-			</plugin>
+  			</plugin>
 		</plugins>
 	</build>
 
@@ -427,7 +427,6 @@
 				<dependency>
 					<groupId>org.jboss.as</groupId>
 					<artifactId>jboss-as-arquillian-container-managed</artifactId>
-					<version>7.1.2.Final</version>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
@@ -441,7 +440,6 @@
 				<dependency>
 					<groupId>org.jboss.as</groupId>
 					<artifactId>jboss-as-arquillian-container-remote</artifactId>
-					<version>7.1.2.Final</version>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
