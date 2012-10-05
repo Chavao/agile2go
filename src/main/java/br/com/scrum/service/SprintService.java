@@ -17,7 +17,7 @@ public class SprintService extends PersistenceUtil implements Serializable
 	{
 		try {
 			Sprint exist = exists(sprint.getName());
-			if (exist != null && !exist.equals("")) {
+			if (exist != null) {
 				throw new BusinessException("sprint already exists");
 			}
 			super.create(sprint);			
@@ -49,10 +49,10 @@ public class SprintService extends PersistenceUtil implements Serializable
 	
 	public void delete(Sprint sprint) 
 	{
-		super.delete(super.getEntityManager.getReference(Sprint.class, sprint.getId()));			
+		super.delete(getEntityManager.getReference(Sprint.class, sprint.getId()));			
 	}
 
-	public Sprint withId(Integer id) 
+	public Sprint findById(Integer id) 
 	{
 		return super.findById(Sprint.class, id);
 	}

@@ -12,7 +12,7 @@ public class UserService extends PersistenceUtil implements Serializable {
 	public void create(User user) throws Exception 
 	{
 		try {
-			create(user);			
+			super.create(user);			
 		}
 		catch (Exception e) {
 			throw e;
@@ -22,7 +22,7 @@ public class UserService extends PersistenceUtil implements Serializable {
 	public void save(User user) throws Exception 
 	{
 		try {
-			save(user);				
+			super.save(user);				
 		}
 		catch (Exception e) {
 			throw e;
@@ -32,7 +32,7 @@ public class UserService extends PersistenceUtil implements Serializable {
 	public User getUserByCredential(String username, String password)
 	{
 		try {
-			return findUniqueByNamedQuery("User.getByLogin", username, password);
+			return super.findUniqueByNamedQuery("User.getByLogin", username, password);
 		}
 		catch (NoResultException e) {
 			return null;

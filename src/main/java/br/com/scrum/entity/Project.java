@@ -50,7 +50,7 @@ public class Project implements Serializable
 	@Column(name = "COMPANY", nullable = false, length = 60)
 	private String company;
 	
-	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Sprint> sprints;
 		
 	public Project() 

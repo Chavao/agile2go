@@ -3,7 +3,6 @@ package br.com.scrum.controller.mb;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.faces.application.FacesMessage;
@@ -13,9 +12,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.security.Authenticator;
 import org.jboss.seam.security.BaseAuthenticator;
 import org.jboss.seam.security.CredentialsImpl;
 import org.jboss.seam.security.Identity;
+import org.jboss.seam.security.management.IdmAuthenticator;
 import org.picketlink.idm.impl.api.PasswordCredential;
 import org.picketlink.idm.impl.api.model.SimpleUser;
 
@@ -24,19 +25,13 @@ import br.com.scrum.service.UserService;
 
 @Named
 @SessionScoped
-public class AuthenticationMB extends BaseAuthenticator implements Serializable 
+public class AuthenticationMB extends BaseAuthenticator implements Authenticator , Serializable 
 {	
 	@Inject private UserService userService;
 	@Inject private CredentialsImpl credentials;
 	@Inject private Identity identity;
 	@Inject private Event<User> loginEvent;
 	
-	@PostConstruct
-	public void init() {
-		System.out.println("passed");
-	}
-	
-	@Override
 	public void authenticate()
 	{
 		User user = userService.getUserByCredential(credentials.getUsername(), credentials.getPassword());
@@ -55,15 +50,14 @@ public class AuthenticationMB extends BaseAuthenticator implements Serializable
 		redirectToLoginIfNotLoggedIn();
 	}
 
-	public void logout()
+	public String logout()
 	{
-		identity.setAuthenticatorClass(AuthenticationMB.class);
+		identity.setAuthenticatorClass(IdmAuthenticator.class);
 		identity.logout();
 		redirectToViewId("/index.html");
-		return;
+		return "";
 	}
 
-	@Override
 	public AuthenticationStatus getStatus() 
 	{
 		return super.getStatus();

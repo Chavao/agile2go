@@ -21,7 +21,7 @@ public class TaskConverter implements Converter {
 		if ( value == null || value.trim().isEmpty() ) {
 			return null;
 		}
-		return service.withId(Integer.parseInt(value));					
+		return service.findById(Integer.parseInt(value));					
 	}
 
 	@Override
