@@ -4,6 +4,7 @@
 	<groupId>agile2go</groupId>
 	<artifactId>agile2go</artifactId>
 	<packaging>war</packaging>
+
 	<version>1.0</version>
 
 	<name>agile2go</name>
