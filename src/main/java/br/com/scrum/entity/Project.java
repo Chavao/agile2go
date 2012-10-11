@@ -24,7 +24,8 @@ import br.com.scrum.entity.enums.Const;
 
 @Entity
 @Table(name = "PROJECT", schema = Const.SCHEMA, uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"NAME"})})
+		@UniqueConstraint(columnNames = {"NAME"})
+		})
 @NamedQueries({
 	@NamedQuery(name = "Project.getByName", query = "from Project p where upper(p.name) like ?")
 	})

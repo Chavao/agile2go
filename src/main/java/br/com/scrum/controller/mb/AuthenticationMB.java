@@ -32,6 +32,9 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 	@Inject private Identity identity;
 	@Inject private Event<User> loginEvent;
 	
+	@SuppressWarnings("unused")
+	private static final String LOGOUT = "http://agile2go-dejesus.rhcloud.com/";
+	
 	public void authenticate()
 	{
 		User user = userService.getUserByCredential(credentials.getUsername(), credentials.getPassword());
