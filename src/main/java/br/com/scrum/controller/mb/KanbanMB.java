@@ -2,9 +2,10 @@ package br.com.scrum.controller.mb;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.DashboardReorderEvent;
@@ -13,10 +14,16 @@ import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 
-@Named
-@RequestScoped
-public class KanbanMB extends BaseBean implements Serializable {
+import br.com.scrum.entity.Task;
+import br.com.scrum.service.TaskService;
 
+@Named
+@ViewScoped
+public class KanbanMB extends BaseBean implements Serializable {
+	
+	@Inject private TaskService taskService;
+	
+	private Task task = new Task();
 	private DashboardModel taskBoard;
 	
 	public KanbanMB() {		

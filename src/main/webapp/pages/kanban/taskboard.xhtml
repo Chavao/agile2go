@@ -7,6 +7,7 @@
 <h:head>
 	<h:outputStylesheet name="content.css" library="css" />		
 </h:head>
+<body>
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
 		
@@ -15,9 +16,11 @@
 			<p:dashboard id="board" model="#{kanbanMB.taskBoard}">
 				<p:ajax event="reorder" listener="#{dashboardBean.handleReorder}"
 					update=":growl" />
-
+					
 				<p:panel id="sports" header="Sports">
-					<h:outputText value="Sports Content" />
+					<h:outputText value="Sports Content" maxlength="40" 
+					style="width:170px;height:90px;" />
+					<!-- <p:inputTextarea style="width:170px; height:90px;" /> -->
 				</p:panel>
 
 				<p:panel id="finance" header="Finance">
@@ -41,4 +44,5 @@
 		
 	</ui:define>
 </ui:composition>
+</body>
 </html>

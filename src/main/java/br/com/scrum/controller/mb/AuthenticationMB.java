@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.ExternalContext;
@@ -30,10 +29,6 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 	@Inject private UserService userService;
 	@Inject private CredentialsImpl credentials;
 	@Inject private Identity identity;
-	@Inject private Event<User> loginEvent;
-	
-	@SuppressWarnings("unused")
-	private static final String LOGOUT = "http://agile2go-dejesus.rhcloud.com/";
 	
 	public void authenticate()
 	{
@@ -41,7 +36,6 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 		if (user != null && credentials.getCredential() instanceof PasswordCredential && 
 			user.getPassword().equals(((PasswordCredential) credentials.getCredential()).getValue())) 
 		{
-			loginEvent.fire(user);
 			setStatus(AuthenticationStatus.SUCCESS);
 			identity.addRole(credentials.getUsername(), "USERS", "GROUP");
 			setUser(new SimpleUser(user.getLogin()));
