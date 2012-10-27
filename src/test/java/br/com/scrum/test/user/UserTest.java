@@ -4,8 +4,9 @@
 //
 //import java.util.Random;
 //
+//import javax.inject.Inject;
+//
 //import org.jboss.arquillian.container.test.api.Deployment;
-//import org.jboss.arquillian.core.api.annotation.Inject;
 //import org.jboss.arquillian.junit.Arquillian;
 //import org.jboss.shrinkwrap.api.spec.WebArchive;
 //import org.junit.Test;
@@ -24,17 +25,22 @@
 //		return UserDeployment.deployment();
 //	}
 //	
-//	@Inject private UserService userService;
+//	@Inject
+//	private UserService userService;
+//	
 //	private static Long random = new Random().nextLong(); 
 //	private static Integer ID; 
-//
+//	
 //	@Test
 //	public void save() throws Exception 
 //	{
-//		User user = new User("Anonymous - " + random, String.valueOf(random), "123", UserRole.MASTER);		
-//		userService.create(user);
-//		assertNotNull(user.getId());
-//		ID = user.getId();
+////		try {
+//			User user = new User("Anonymous - " + random, String.valueOf(random), "123", UserRole.MASTER);
+//			userService.create(user);
+//			assertNotNull(user.getId());
+//			ID = user.getId();
+////		} catch (Exception e) {
+////		}
 //	}
 //
 ////	private void update(long random) throws Exception {

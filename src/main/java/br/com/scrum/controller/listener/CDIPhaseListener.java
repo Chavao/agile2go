@@ -1,4 +1,4 @@
-package br.com.scrum.controller.mb;
+package br.com.scrum.controller.listener;
 
 import javax.enterprise.event.Observes;
 import javax.faces.event.PhaseEvent;

@@ -30,5 +30,18 @@ public class BaseBean implements Serializable{
 		FacesContext.getCurrentInstance().addMessage(componentId, message);		
 	}
 	
+	public static Object getManagedBean(String name, Class<?> model) {
+		return FacesContext.getCurrentInstance().getApplication()
+				.evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{" + name + "}", model);
+	}
+
+	public static Object getFromSession(String param) {
+		return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(param);
+	}
+
+	public static void setInSession(String param, String value) {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(param, value);
+	}
+	
 	private static final long serialVersionUID = 1L;
 }

@@ -10,39 +10,48 @@
 <body>
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
-		
-		<h:form id="form">
 
-			<p:dashboard id="board" model="#{kanbanMB.taskBoard}">
-				<p:ajax event="reorder" listener="#{dashboardBean.handleReorder}"
-					update=":growl" />
-					
-				<p:panel id="sports" header="Sports">
-					<h:outputText value="Sports Content" maxlength="40" 
-					style="width:170px;height:90px;" />
-					<!-- <p:inputTextarea style="width:170px; height:90px;" /> -->
-				</p:panel>
+			<h:form id="form">
 
-				<p:panel id="finance" header="Finance">
-					<h:outputText value="Finance Content" />
-				</p:panel>
+				<div style="margin-left:200px; margin-top: 15px;">
+					<h:outputLabel value="TODO" style="width:170px; height:90px;" />
+				</div>
+				<div style="margin-left: 500px; margin-top: 15px;">
+					<h:outputLabel value="ONGOING" style="width:170px; height:90px;" />
+				</div>
+				<div style="margin-left: 700px; margin-top: 15px;">
+					<h:outputLabel value="DONE" style="width:170px; height:90px;" />
+				</div>
+				
+				<p:dashboard id="board" model="#{kanbanMB.taskBoard}">
+					<p:ajax event="reorder" listener="#{dashboardBean.handleReorder}"
+						update=":growl" />
 
-				<p:panel id="lifestyle" header="Lifestyle">
-					<h:outputText value="Lifestyle Content" />
-				</p:panel>
+					<p:panel id="sports" header="Sports">
+						<h:outputText value="Sports Content" maxlength="40"
+							style="width:170px;height:90px;" />
+						<!-- <p:inputTextarea style="width:170px; height:90px;" /> -->
+					</p:panel>
 
-				<p:panel id="weather" header="Weather">
-					<h:outputText value="Weather Content" />
-				</p:panel>
+					<p:panel id="finance" header="Finance">
+						<h:outputText value="Finance Content" />
+					</p:panel>
 
-				<p:panel id="politics" header="Politics">
-					<h:outputText value="Politics Content" />
-				</p:panel>
-			</p:dashboard>
+					<p:panel id="lifestyle" header="Lifestyle">
+						<h:outputText value="Lifestyle Content" />
+					</p:panel>
 
-		</h:form>
-		
-	</ui:define>
+					<p:panel id="weather" header="Weather">
+						<h:outputText value="Weather Content" />
+					</p:panel>
+
+					<p:panel id="politics" header="Politics">
+						<h:outputText value="Politics Content" />
+					</p:panel>
+				</p:dashboard>
+			</h:form>
+
+		</ui:define>
 </ui:composition>
 </body>
 </html>

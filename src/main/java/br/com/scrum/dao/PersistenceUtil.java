@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+@SuppressWarnings("serial")
 public abstract class PersistenceUtil implements Serializable
 {
 	@Inject protected EntityManager getEntityManager;
@@ -18,12 +19,12 @@ public abstract class PersistenceUtil implements Serializable
 	{
 		getEntityManager.persist(entity);
 	}
-
+	
 	protected <T> void delete(final T entity) throws NoResultException
 	{
 		getEntityManager.remove(entity);
 	}
-
+	
 	protected <T> void save(final T entity)
 	{
 		if (getEntityManager == null)
@@ -109,6 +110,8 @@ public abstract class PersistenceUtil implements Serializable
 		return clazz;
 	}
 
-	private static final long serialVersionUID = 2827209442002107588L;
+	public void setGetEntityManager(EntityManager getEntityManager) {
+		this.getEntityManager = getEntityManager;
+	}
 
 }

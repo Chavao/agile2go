@@ -6,11 +6,14 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import org.jboss.seam.transaction.Transactional;
+
 import br.com.scrum.controller.util.Assert;
 import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.Project;
 import br.com.scrum.util.exception.BusinessException;
 
+@Transactional
 public class ProjectService extends PersistenceUtil implements Serializable
 {			
 	public void create(Project project) throws Exception 
