@@ -10,10 +10,10 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<!-- openshift -->
-		 <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
+		 <!-- <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source> -->
 
 		<!-- comment this when openshift is being used -->
-        <!-- <jta-data-source>java:jboss/datasources/postgresDS</jta-data-source> -->
+        <jta-data-source>java:jboss/datasources/postgresDS</jta-data-source>
 
 		<properties>
 			<!-- never comment -->
