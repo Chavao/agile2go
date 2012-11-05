@@ -16,20 +16,17 @@
 					paginatorPosition="bottom" value="#{taskMB.tasks}" paginator="true"
 					rows="5" rowsPerPageTemplate="5,10,15" cellpadding="3" style="width:1070px; margin-top:70px; margin-left:100px;"
 					cellspacing="3" styleClass="dataTable">
-					<f:facet name="header">
-						<h:outputText value="Tasks" styleClass="inputDataTable" />
-					</f:facet>
-					<p:column headerText="User Story" styleClass="inputDataTable">
+					<p:column headerText="Tasks" styleClass="inputDataTable" filterBy="#{task.storie}" filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.storie}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText value="#{task.storie}" style="width: 100%" />
+								<p:inputText value="#{task.storie}" style="width: 95%" size="15" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Priority" styleClass="inputDataTable">
+					<p:column headerText="Priority" styleClass="inputDataTable" filterBy="#{task.priority}" filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.priority}" />
@@ -39,7 +36,7 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Status" styleClass="inputDataTable">
+					<p:column headerText="Status" styleClass="inputDataTable" filterBy="#{task.status.description}" filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.status.description}" style="width:120px;" />
@@ -51,7 +48,7 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Deadline" styleClass="inputDataTable">
+					<p:column headerText="Deadline" styleClass="inputDataTable" filterBy="#{task.hours}" filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.hours}" />
@@ -61,7 +58,7 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Sprint" styleClass="inputDataTable">
+					<p:column headerText="Sprint" styleClass="inputDataTable" filterBy="#{task.sprint.name}" filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.sprint.name}" />
@@ -78,10 +75,8 @@
 					</p:column>
 					<p:column styleClass="dataTableOptions">
 						<p:commandLink onclick="confirmation2.show()">
-							<h:graphicImage value="/resources/img/editar16.png"
-								title="update" />
-							<f:setPropertyActionListener target="#{taskMB.task}"
-								value="#{task}" />
+							<h:graphicImage value="/resources/img/editar16.png" title="update" />
+							<f:setPropertyActionListener target="#{taskMB.task}" value="#{task}" />
 						</p:commandLink>
 					</p:column>
 					<p:column styleClass="dataTableOptions">
@@ -92,9 +87,6 @@
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
-				<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
-					<p:graphicImage value="/resources/img/loading.gif" />
-				</p:blockUI>
 			</h:panelGroup>
 		</h:form>
 

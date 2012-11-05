@@ -14,87 +14,82 @@
 		<h:panelGroup id="tableGroup">		
 			<p:dataTable id="dataTable" var="sprint" editable="true" paginatorPosition="bottom"
 				value="#{sprintMB.sprints}" paginator="true" rows="5" rowKey="#{sprintMB.sprint.id}"
-				rowsPerPageTemplate="5,10,15" cellpadding="3" cellspacing="3" style="width:1070px; margin-top:70px; margin-left:100px;">				  
-				<f:facet name="header">
-					<h:outputText value="Sprints" styleClass="inputDataTable" />
-				</f:facet>
-				<p:column headerText="Name" styleClass="inputDataTable">
-					<p:cellEditor>                 
-						<f:facet name="output">
-							<h:outputText value="#{sprint.name}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{sprint.name}" style="width:100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Start Date" styleClass="inputDataTable">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{sprint.startDate}">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
-							</h:outputText>
-						</f:facet>
-						<f:facet name="input">
-							<p:calendar value="#{sprint.startDate}" pattern="dd/MM/yyyy" style="width:100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="End Date" styleClass="inputDataTable">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{sprint.endDate}">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
-							</h:outputText>
-						</f:facet>
-						<f:facet name="input">
-							<p:calendar value="#{sprint.endDate}" pattern="dd/MM/yyyy" style="width:100%" />														
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Daily Meeting Time" styleClass="inputDataTable">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{sprint.dailyScrum}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{sprint.dailyScrum}" style="width:100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Project" styleClass="inputDataTable">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{sprint.project.name}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{sprint.project.name}" style="width:100%" disabled="true"/>
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column styleClass="dataTableOptions">	
-					<p:rowEditor>
-						<h:outputText title="edit" />
-					</p:rowEditor>
-				</p:column>				
-				<p:column styleClass="dataTableOptions">				
-					<p:commandLink onclick="confirmation2.show()">
-						<h:graphicImage value="/resources/img/editar16.png" title="update" />
-						<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />
-					</p:commandLink>
-				</p:column>
-				<p:column styleClass="dataTableOptions">
-					<p:commandLink onclick="confirmation.show()">										
-						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
-						<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />
-						<f:ajax render="@form" />												
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
-			<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
-				<p:graphicImage value="/resources/img/loading.gif" />
-			</p:blockUI>			
+				rowsPerPageTemplate="5,10,15" cellpadding="3" cellspacing="3" style="width:1070px; margin-top:70px; margin-left:100px;">
+					<p:column headerText="Sprints" styleClass="inputDataTable" filterBy="#{sprint.name}" filterStyle="width:140px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{sprint.name}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{sprint.name}" style="width: 95%" size="15" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Start Date" styleClass="inputDataTable" filterBy="#{sprint.startDate}" filterStyle="width:140px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{sprint.startDate}" style="width:100%; text-align:center;">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar id="data"
+									pattern="dd/MM/yyyy"
+									required="true"
+									requiredMessage="start date is a required field"
+									value="#{sprint.startDate}"
+									style="width: 30%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="End Date" styleClass="inputDataTable" filterBy="#{sprint.endDate}" filterStyle="width:140px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{sprint.endDate}" style="width: 100%; ">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+							<p:calendar id="data2"
+									pattern="dd/MM/yyyy"
+									required="true"
+									requiredMessage="end date is a required field"
+									value="#{sprint.endDate}" style="width: 30%; text-align:center;" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Meeting" styleClass="inputDataTable" filterBy="#{sprint.dailyScrum}" filterStyle="width:140px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{sprint.dailyScrum}"/>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputMask value="#{sprint.dailyScrum}" mask="99:99" size="5" style="width: 84%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					
+					<p:column styleClass="dataTableOptions">
+						<p:rowEditor>
+							<h:outputText title="edit" />
+						</p:rowEditor>
+					</p:column>
+					<p:column styleClass="dataTableOptions">
+						<p:commandLink onclick="confirmation2.show()">
+							<h:graphicImage value="/resources/img/editar16.png" title="update" />
+							<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />
+						</p:commandLink>
+					</p:column>
+					<p:column styleClass="dataTableOptions">
+						<p:commandLink onclick="confirmation.show()">
+							<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
+							<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />
+							<f:ajax render="@form" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
 		</h:panelGroup>
+		
 		</h:form>
 			<p:confirmDialog message="Are you sure do you want remove?"
 			header="remove" severity="alert" widgetVar="confirmation"

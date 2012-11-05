@@ -24,7 +24,8 @@ import br.com.scrum.entity.enums.UserRole;
 		@UniqueConstraint(columnNames = "LOGIN")
 		})
 @NamedQueries({
-	@NamedQuery(name = "User.getByLogin", query = "from User u where u.login = ? and u.password = ? ")
+	@NamedQuery(name = "User.getByLogin",
+				query = "from User u where u.login = ? and u.password = ? ")
 })
 public class User implements Serializable
 {	
@@ -49,13 +50,9 @@ public class User implements Serializable
 	private String password;
 
 	@Enumerated(EnumType.STRING)
-	@Column(length = 10)
+	@Column(name = "ROLE", length = 10)
 	private UserRole role;
-
-//	@ElementCollection(fetch = FetchType.EAGER)
-//	@CollectionTable(name = "user_profiles_keys")
-//	private Set<String> identityKeys = new HashSet<String>();
-
+	
 	public User() 
 	{ }
 
@@ -70,11 +67,6 @@ public class User implements Serializable
 	public int getId() 
 	{
 		return id;
-	}
-
-	public void setId(int id) 
-	{
-		this.id = id;
 	}
 
 	public String getName() 
@@ -116,18 +108,7 @@ public class User implements Serializable
 	{
 		this.role = role;
 	}
-	
-//	public Set<String> getIdentityKeys() 
-//	{
-//		return identityKeys;
-//	}
-//
-//	public void setIdentityKeys(Set<String> identityKeys) 
-//	{
-//		this.identityKeys = identityKeys;
-//	}
 
-	@Override
 	public int hashCode() 
 	{
 		final int prime = 31;

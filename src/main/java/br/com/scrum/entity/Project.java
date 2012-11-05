@@ -1,6 +1,7 @@
 package br.com.scrum.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -22,12 +26,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.scrum.entity.enums.Const;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "PROJECT", schema = Const.SCHEMA, uniqueConstraints = {
 		@UniqueConstraint(columnNames = {"NAME"})
 		})
 @NamedQueries({
-	@NamedQuery(name = "Project.getByName", query = "from Project p where upper(p.name) like ?")
+	@NamedQuery(name = "Project.getByName",
+				query = "from Project p where upper(p.name) like ?")
 	})
 public class Project implements Serializable 
 {	
@@ -53,7 +59,15 @@ public class Project implements Serializable
 	
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Sprint> sprints;
-		
+	
+	@ManyToMany
+	@JoinTable(name = "user_project", schema = Const.SCHEMA,
+	joinColumns = {
+			@JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")},
+			inverseJoinColumns = {
+			@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")})
+	private List<User> users = new ArrayList<User>();
+	
 	public Project() 
 	{ }
 
@@ -65,11 +79,6 @@ public class Project implements Serializable
 	public Integer getId() 
 	{
 		return id;
-	}
-
-	public void setId(Integer id) 
-	{
-		this.id = id;
 	}
 
 	public String getName() 
@@ -121,6 +130,14 @@ public class Project implements Serializable
 	{
 		this.sprints = sprints;
 	}
+		
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
 	@Override
 	public int hashCode() 
@@ -148,7 +165,5 @@ public class Project implements Serializable
 			return false;
 		return true;
 	}
-
-	private static final long serialVersionUID = -2102744528226591109L;
 
 }

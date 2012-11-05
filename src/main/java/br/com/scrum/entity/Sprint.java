@@ -26,8 +26,11 @@ import br.com.scrum.entity.enums.Const;
 @Entity
 @Table(name = "SPRINT", schema = Const.SCHEMA)
 @NamedQueries({
-		@NamedQuery(name="Sprint.getLastId", query="from Sprint s where s.id = (select max(s.id) from Sprint s)"),
-		@NamedQuery(name="Sprint.getByName", query="from Sprint s where upper(s.name) like ?")
+		@NamedQuery(name="Sprint.getLastId",
+					query="from Sprint s where s.id = (select max(s.id) from Sprint s)"),
+					
+		@NamedQuery(name="Sprint.getByName",
+					query="from Sprint s where upper(s.name) like ?")
 		})
 public class Sprint implements Serializable 
 {	

@@ -15,64 +15,61 @@
 			<h:panelGroup id="tableGroup">								
 			<p:dataTable id="dataTable" var="project" editable="true" paginatorPosition="bottom" 
 				value="#{projectMB.projects}" paginator="true" rows="5" style="width:1070px; margin-top:70px; margin-left:100px;" 
-				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3">								
-				<f:facet name="header">
-					<h:outputText value="Projects" styleClass="inputDataTable" />
-				</f:facet>
-				<p:column headerText="Name" styleClass="inputDataTable">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{project.name}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{project.name}" style="width: 100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Description" styleClass="inputDataTable">
-					<p:cellEditor>
-						<f:facet name="output"> 
-							<h:outputText value="#{project.description}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{project.description}" style="width: 100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Deadline" styleClass="inputDataTable">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{project.lastDate}">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
-							</h:outputText>
-						</f:facet>
-						<f:facet name="input">
-							<p:calendar value="#{project.lastDate}" style="width: 100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Company" styleClass="inputDataTable">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{project.company}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{project.company}" style="width:100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Edit" styleClass="dataTableOptions">	
-					<p:rowEditor>
-						<h:outputText title="edit" />
-					</p:rowEditor>
-				</p:column>				
-				<p:column headerText="Update" styleClass="dataTableOptions">				
+				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3">
+					<p:column headerText="Projects" styleClass="inputDataTable" filterBy="#{project.name}" filterStyle="width:100px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{project.name}" style="width: 70%" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{project.name}" style="width: 95%" size="20"/>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Description" styleClass="inputDataTable" filterBy="#{project.description}" filterStyle="width:140px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{project.description}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{project.description}" style="width: 95%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Deadline" styleClass="inputDataTable" filterBy="#{project.lastDate}" filterStyle="width:70px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{project.lastDate}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar value="#{project.lastDate}" style="width: 100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Company" styleClass="inputDataTable" filterBy="#{project.lastDate}" filterStyle="width:70px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{project.company}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{project.company}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Edit" styleClass="dataTableOptions">
+						<p:rowEditor>
+							<h:outputText title="edit" />
+						</p:rowEditor>
+					</p:column>
+					<p:column styleClass="dataTableOptions">				
 					<p:commandLink onclick="confirmation2.show()">
 						<h:graphicImage value="/resources/img/editar16.png" title="update" />
 						<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
 					</p:commandLink>
 				</p:column>
-				<p:column headerText="Remove" styleClass="dataTableOptions">
+				<p:column styleClass="dataTableOptions">
 					<p:commandLink onclick="confirmation.show()">										
 						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
 						<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
@@ -80,9 +77,9 @@
 				</p:column>
 			</p:dataTable>
 			</h:panelGroup>
-			<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
+			<!-- <p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
 				<p:graphicImage value="/resources/img/loading.gif" />
-			</p:blockUI>	
+			</p:blockUI> -->	
 										
 		</h:form>
 

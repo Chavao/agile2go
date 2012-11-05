@@ -2,6 +2,7 @@ package br.com.scrum.controller.mb;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ViewScoped;
@@ -15,6 +16,7 @@ import br.com.scrum.entity.Sprint;
 import br.com.scrum.service.ProjectService;
 import br.com.scrum.service.SprintService;
 
+@SuppressWarnings("serial")
 @Named
 @ViewScoped
 public class SprintMB extends BaseBean implements Serializable {
@@ -24,11 +26,14 @@ public class SprintMB extends BaseBean implements Serializable {
 		
 	private Sprint sprint = new Sprint();		
 	private List<Sprint> sprints;
-	private List<Project> projects;		
+	private List<Project> projects;
+	
+	private boolean notOk;
 	
 	public void createOrSave() {
 		try {
-			if ( sprint.getId() == null ) {					
+			if (validateSprint()) return;
+			if ( sprint.getId() == null ) {
 				sprintService.create(sprint);
 				sprint = new Sprint();
 				addInfoMessage("sprint successfully created");				
@@ -41,6 +46,20 @@ public class SprintMB extends BaseBean implements Serializable {
 		} catch ( Exception e ) {
 			addErrorMessage("a excepted has ocurred!");
 		}
+	}
+	
+	private boolean validateSprint()
+	{
+		notOk = false;
+		if (sprint.getStartDate().after(new Date())) {
+			addInfoMessage("you can not create a sprint with the start date after today");
+			notOk = true;
+		}
+		if (sprint.getEndDate().before(sprint.getStartDate())) {
+			addInfoMessage("you can not create a sprint with the end date before the start date");
+			notOk = true;
+		}
+		return notOk;
 	}
 	
 	public void delete() {		
@@ -80,7 +99,5 @@ public class SprintMB extends BaseBean implements Serializable {
 	public void setSprints(List<Sprint> sprints) {
 		this.sprints = sprints;
 	}	
-	
-	private static final long serialVersionUID = 6429842878070655145L;
 
 }

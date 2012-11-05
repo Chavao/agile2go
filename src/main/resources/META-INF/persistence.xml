@@ -10,14 +10,14 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<!-- openshift -->
-		 <!-- <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source> -->
+		 <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
 
 		<!-- comment this when openshift is being used -->
-        <jta-data-source>java:jboss/datasources/postgresDS</jta-data-source>
+        <!-- <jta-data-source>java:jboss/datasources/postgresDS</jta-data-source> -->
 
 		<properties>
 			<!-- never comment -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.show_sql" value="true" />
 
@@ -27,9 +27,6 @@
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" /> -->
-			<!-- <property name="hibernate.transaction.flush_before_completion" value="true" />
-			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
-			<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" /> -->
 		</properties>
 
 	</persistence-unit>
