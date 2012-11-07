@@ -12,23 +12,21 @@ import br.com.scrum.service.ProjectService;
 
 @Named
 @RequestScoped
-public class ProjectConverter implements Converter {
-	
+public class ProjectConverter implements Converter
+{
 	@Inject private ProjectService service;
 
 	@Override
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		if ( value == null || value.trim().isEmpty() ) {
-			return null;
-		}		
-		return service.withId(Integer.parseInt(value));
+	public Object getAsObject(FacesContext context, UIComponent component, String value)
+	{
+		return value == null || value.trim().isEmpty() ? 
+			null : service.withId(Integer.parseInt(value));
 	}
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		if ( value == null || value.equals("") || ((Project) value).getId() == null ) { 
-			return "";		
-		}		
-		return ((Project) value).getId().toString();			
+	public String getAsString(FacesContext context, UIComponent component, Object value)
+	{
+		return value == null || value.equals("") || ((Project) value).getId() == null ? 
+				"" : ((Project)value).getId().toString();			
 	}
 }

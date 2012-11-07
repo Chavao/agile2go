@@ -1,20 +1,17 @@
 package br.com.scrum.service;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-
-import org.jboss.seam.transaction.Transactional;
 
 import br.com.scrum.controller.util.Assert;
 import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.Project;
 import br.com.scrum.util.exception.BusinessException;
 
-@Transactional
-public class ProjectService extends PersistenceUtil implements Serializable
+@SuppressWarnings("serial")
+public class ProjectService extends PersistenceUtil
 {			
 	public void create(Project project) throws Exception 
 	{
@@ -79,5 +76,4 @@ public class ProjectService extends PersistenceUtil implements Serializable
 		}
 	}
 
-	private static final long serialVersionUID = 973523347646521301L;
 }

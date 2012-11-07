@@ -5,10 +5,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Named;
 
-import br.com.scrum.entity.enums.Status;
+import br.com.scrum.entity.enums.UserRole;
 
 @Named
-public class StatusConverter implements Converter
+public class UserRoleConverter implements Converter
 {
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value)
@@ -16,9 +16,9 @@ public class StatusConverter implements Converter
 		if ( value == null || value.trim().isEmpty() ) {
 			return null;
 		}
-		for (Status s : Status.values()) {
-			if (s.getCode().equalsIgnoreCase(value)) {
-				return s;
+		for (UserRole u : UserRole.values()) {
+			if (u.getCode().equalsIgnoreCase(value)) {
+				return u;
 			}
 		}		
 		return null;
@@ -27,7 +27,7 @@ public class StatusConverter implements Converter
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value)
 	{
-		return value == null || value.equals("") ?
-				"" :((Status)value).getCode();		
+		return value == null || value.equals("") ? "" : ((UserRole)value).getCode();		
 	}
+	
 }

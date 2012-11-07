@@ -1,10 +1,10 @@
 package br.com.scrum.controller.mb;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,8 +19,8 @@ import br.com.scrum.service.SprintService;
 @SuppressWarnings("serial")
 @Named
 @ViewScoped
-public class SprintMB extends BaseBean implements Serializable {
-			
+public class SprintMB extends BaseBean
+{
 	@Inject private SprintService sprintService;	
 	@Inject private ProjectService projectService;
 		
@@ -29,6 +29,12 @@ public class SprintMB extends BaseBean implements Serializable {
 	private List<Project> projects;
 	
 	private boolean notOk;
+	
+	@PostConstruct
+	public void init()
+	{
+		findAll();
+	}
 	
 	public void createOrSave() {
 		try {
@@ -41,6 +47,7 @@ public class SprintMB extends BaseBean implements Serializable {
 				sprintService.save(sprint);
 				addInfoMessage("sprint successfully saved");
 			}
+			findAll();
 		} catch ( ConstraintViolationException cve ) {
 			addErrorMessage("sprint already exsists");
 		} catch ( Exception e ) {
@@ -65,11 +72,15 @@ public class SprintMB extends BaseBean implements Serializable {
 	public void delete() {		
 		try {
 			sprintService.delete(sprint);
-			sprints = sprintService.findAll();
+			findAll();
 			addInfoMessage("sprint removed");
 		} catch ( Exception e ) {
 			addErrorMessage(e.getMessage());
 		}		
+	}
+	
+	private void findAll() {
+		sprints = sprintService.findAll();
 	}
 
 	public List<Project> completeProject(String query) {
@@ -85,7 +96,7 @@ public class SprintMB extends BaseBean implements Serializable {
 	}
 	
 	public List<Sprint> getSprints() {
-		return sprints == null ? sprints = sprintService.findAll() : sprints;		 
+		return sprints;		 
 	}
 
 	public Sprint getSprint() {

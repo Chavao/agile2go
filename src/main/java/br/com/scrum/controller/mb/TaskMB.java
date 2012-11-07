@@ -1,9 +1,9 @@
 package br.com.scrum.controller.mb;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
@@ -17,9 +17,10 @@ import br.com.scrum.entity.enums.Status;
 import br.com.scrum.service.SprintService;
 import br.com.scrum.service.TaskService;
 
+@SuppressWarnings("serial")
 @Named
 @ViewScoped
-public class TaskMB extends BaseBean implements Serializable 
+public class TaskMB extends BaseBean
 {
 	@Inject private TaskService taskService;
 	@Inject private SprintService sprintService;
@@ -28,6 +29,12 @@ public class TaskMB extends BaseBean implements Serializable
 	private List<Task> tasks;
 	private List<Sprint> sprints;
 	private List<SelectItem> taskItems;
+	
+	@PostConstruct
+	public void init()
+	{
+		findAll();
+	}
 
 	public void createOrSave() 
 	{
@@ -41,6 +48,7 @@ public class TaskMB extends BaseBean implements Serializable
 				taskService.save(task);
 				addInfoMessage("task successfully updated");
 			}
+			findAll();
 		} catch ( ConstraintViolationException pe ) {
 			addInfoMessage("task already exists");			
 		} catch ( Exception e ) {
@@ -52,7 +60,7 @@ public class TaskMB extends BaseBean implements Serializable
 	{		
 		try {
 			taskService.delete(task);
-			tasks = taskService.findAll();
+			findAll();
 			addInfoMessage("task romoved");
 		} catch ( Exception e ) {
 			addErrorMessage(e.getMessage());
@@ -86,6 +94,11 @@ public class TaskMB extends BaseBean implements Serializable
 		return taskItems;
 	}
 	
+	private void findAll()
+	{
+		tasks = taskService.findAll();
+	}
+	
 	public Task getTask() 
 	{
 		return task;
@@ -98,14 +111,12 @@ public class TaskMB extends BaseBean implements Serializable
 
 	public List<Task> getTasks() 
 	{
-		return tasks == null ? tasks = taskService.findAll() : tasks;
+		return tasks;
 	}
 
 	public void setTasks(List<Task> tasks) 
 	{
 		this.tasks = tasks;
 	}
-
-	private static final long serialVersionUID = 8297152244005721364L;
 
 }

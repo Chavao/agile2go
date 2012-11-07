@@ -322,7 +322,7 @@
 				<version>7.1.1.Final</version>
 
                 <!-- comment this when openshift is being used -->
-                <!-- <executions>
+                <executions>
 					<execution>
 						<id>deploy-driver</id>
 						<phase>package</phase>
@@ -358,7 +358,7 @@
 							</resource>
 						</configuration>
 					</execution>
-                </executions> -->
+                </executions>
  			</plugin>
 		</plugins>
 	</build>

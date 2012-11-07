@@ -10,30 +10,124 @@
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
 
-		<h:form id="form">			
-				<h:panelGrid cellpadding="3" cellspacing="3" styleClass="formulario">
-					<h:panelGrid cellpadding="0" cellspacing="0">
-						<h:outputLabel value="&nbsp;Name" />
-						<p:inputText value="#{projectMB.project.name}" size="20" style="width:305px;" />
-					</h:panelGrid>
-					<h:panelGrid cellpadding="0" cellspacing="0">
-						<h:outputLabel value="&nbsp;Description" />
-						<p:inputTextarea value="#{projectMB.project.description}" style="width:305px; height:42px;" />
-					</h:panelGrid>
-					<h:panelGrid cellpadding="0" cellspacing="0">
-						<h:outputLabel value="&nbsp;Deadline" />
-						<p:calendar pattern="dd/MM/yyyy" value="#{projectMB.project.lastDate}" size="35" />
-					</h:panelGrid>
-					<h:panelGrid cellpadding="0" cellspacing="0">
-						<h:outputLabel value="&nbsp;Company" />
-						<p:inputText value="#{projectMB.project.company}" size="25" style="width:305px;" />
-					</h:panelGrid>
+		<h:form id="form">
+			<h:panelGrid cellpadding="0" cellspacing="0" styleClass="formulario">
+				<h:panelGrid cellpadding="0" cellspacing="0">
+					<h:outputLabel value="&nbsp;Name" for="nome"/>
+					<p:inputText id="nome"
+						value="#{projectMB.project.name}"
+						size="20"
+						style="width:305px;" />
 				</h:panelGrid>
-				<p:commandButton value="Save"
-								 action="#{projectMB.createOrSave}"
-								 update="@form :growl"
-								 style="margin-left:80px;font-family:Ubuntu;font-size:16px;" />											
+				<h:panelGrid cellpadding="0" cellspacing="0">
+					<h:outputLabel value="&nbsp;Description" for="desc"/>
+					<p:inputTextarea id="desc"
+						value="#{projectMB.project.description}"
+						size="100"
+						style="width:305px; height:42px;" />
+				</h:panelGrid>
+				<h:panelGrid cellpadding="0" cellspacing="0">
+					<h:outputLabel value="&nbsp;Deadline" for="deadline"/>
+					<p:calendar id="deadline"
+						value="#{projectMB.project.lastDate}"
+						pattern="dd/MM/yyyy"
+						size="35" />
+				</h:panelGrid>
+				<h:panelGrid cellpadding="0" cellspacing="0">
+					<h:outputLabel value="&nbsp;Company" for="company"/>
+					<p:inputText id="company"
+						value="#{projectMB.project.company}"
+						size="25"
+						style="width:305px;" />
+				</h:panelGrid>
+			</h:panelGrid>
+			<h:panelGrid cellpadding="0" cellspacing="0" columns="2">
+				<p:commandButton value="+Member"
+					update="@form :formMember"
+					onclick="dialogMembers.show()"
+					immediate="true"
+					style="margin-left:55px;font-family:Ubuntu;font-size:16px;"/>
+			</h:panelGrid>
+			<p:spacer height="20" />
+			<p:commandButton id="save"
+				value="Save"
+				action="#{projectMB.createOrSave}"
+				update="@form :growl"
+				style="margin-left:55px;font-family:Ubuntu;font-size:16px;" />
 		</h:form>
+
+		<h:panelGroup id="groupMembership">
+			<p:dialog header="Add a Membership to the Project"
+				widgetVar="dialogMembers" width="550" height="250">
+				<h:form id="formMember">
+					<h:panelGrid cellspacing="10">
+						<h:panelGrid cellpadding="0" cellspacing="0">
+							<h:panelGrid cellpadding="0" cellspacing="0">
+								<h:outputLabel value="&nbsp;Membership" />
+								<h:panelGrid cellpadding="0" cellspacing="0" columns="2">
+									<h:selectOneMenu id="member"
+										value="#{projectMB.membership}"
+										converter="genericConverter"
+										styleClass="ui-state-default ui-corner-all}"
+										style="height:22px; width:344px;">
+										<f:selectItems value="#{projectMB.membershipsItems}" />
+									</h:selectOneMenu>
+									<p:commandLink title="add"
+										action="#{projectMB.addMember}"
+										process="@this member"
+										update="tableMembership :growl"
+										style="margin-top:10px">
+										<h:graphicImage title="Add" url="/resources/img/add-18.png" />
+									</p:commandLink>
+								</h:panelGrid>
+							</h:panelGrid>
+						</h:panelGrid>
+						<h:panelGrid>
+							<p:dataTable id="tableMembership"
+								value="#{projectMB.project.users}"
+								var="member"
+								emptyMessage="None memberships at this project."
+								paginator="true"
+								paginatorPosition="bottom" rows="5"
+								style="width: 500px;">
+								<p:column>
+									<f:facet name="header">Name</f:facet>
+									<h:outputText value="#{member.name}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">Role</f:facet>
+									<h:outputText value="#{member.role}" />
+								</p:column>
+								<p:column style="width: 40px; text-align: center;">
+									<p:commandLink onclick="confirmDialogMember.show()">
+										<h:graphicImage title="Excluir" url="/resources/img/excluir16.png" />
+										<f:setPropertyActionListener value="#{membership}" target="#{projectMB.membership}" />
+									</p:commandLink>
+								</p:column>
+							</p:dataTable>
+						</h:panelGrid>
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+		</h:panelGroup>
+		
+		<p:confirmDialog message="Are you sure do you want remove?"
+			header="remove"
+			severity="alert"
+			widgetVar="confirmDialogMember"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="formDialogRemove">
+				<p:commandButton value="Yes"
+					update=":formMember :growl"
+					actionListener="#{projectMB.removeMember}"
+					oncomplete="confirmation.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No"
+					onclick="confirmation.hide()"
+					type="button"
+					style="font-family:Ubuntu;font-size:16px;" />
+			</h:form>
+		</p:confirmDialog>
 
 	</ui:define>
 </ui:composition>

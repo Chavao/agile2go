@@ -1,14 +1,15 @@
 package br.com.scrum.service;
 
-import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 
 import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.User;
 
-public class UserService extends PersistenceUtil implements Serializable {
-	
+@SuppressWarnings("serial")
+public class UserService extends PersistenceUtil
+{
 	public void create(User user) throws Exception 
 	{
 		try {
@@ -29,6 +30,20 @@ public class UserService extends PersistenceUtil implements Serializable {
 		}
 	} 
 	
+	public void delete(User user) throws Exception
+	{
+		try {
+			super.delete(getEntityManager.getReference(User.class, user.getId()));				
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public List<User> findAll() 
+	{
+		return super.findAll(User.class);
+	}
+	
 	public User getUserByCredential(String username, String password)
 	{
 		try {
@@ -39,6 +54,4 @@ public class UserService extends PersistenceUtil implements Serializable {
 		}
 	}
 	
-	private static final long serialVersionUID = 4629428604267292464L;
-
 }

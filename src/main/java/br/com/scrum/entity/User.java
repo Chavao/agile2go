@@ -4,21 +4,21 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.scrum.entity.enums.Const;
 import br.com.scrum.entity.enums.UserRole;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "USER", schema = Const.SCHEMA, uniqueConstraints = {
 		@UniqueConstraint(columnNames = "LOGIN")
@@ -35,23 +35,26 @@ public class User implements Serializable
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
-	private int id;
+	private Integer id;
 
-	@NotEmpty(message = "name is required field")
+	@NotBlank(message = "name is required field")
 	@Column(name = "NAME", nullable = false, length = 60)
 	private String name;
 
-	@NotEmpty(message = "login do not match")
+	@NotBlank(message = "login do not match")
 	@Column(name = "LOGIN", nullable = false, length = 20)
 	private String login;
 
-	@NotEmpty(message = "password do not match")
+	@NotBlank(message = "password do not match")
 	@Column(name = "PASSWORD", nullable = false, length = 20)
 	private String password;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "ROLE", length = 10)
+	@Transient
 	private UserRole role;
+	
+	@NotBlank(message = "membership role is required field")
+	@Column(name = "ROLE", length = 10)
+	private String role_;
 	
 	public User() 
 	{ }
@@ -64,7 +67,7 @@ public class User implements Serializable
 		this.role = role;
 	}
 
-	public int getId() 
+	public Integer getId() 
 	{
 		return id;
 	}
@@ -99,39 +102,53 @@ public class User implements Serializable
 		this.password = password;
 	}
 
+	public String getRole_() 
+	{
+		return role_;
+	}
+
+	public void setRole_(String role_) 
+	{
+		this.role_ = role_;
+	}
+	
 	public UserRole getRole() 
 	{
+		for (UserRole u : UserRole.values()) 
+			if (u.getCode().equals(role_))
+				return role = u;
 		return role;
 	}
 
 	public void setRole(UserRole role) 
 	{
+		this.role_ = role.getCode();
 		this.role = role;
 	}
 
-	public int hashCode() 
-	{
+	@Override
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) 
-	{
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof User))
+		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
-
-	private static final long serialVersionUID = -2854296962122780992L;
-
+	}
+	
 }

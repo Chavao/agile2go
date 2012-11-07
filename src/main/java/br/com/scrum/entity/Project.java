@@ -3,6 +3,7 @@ package br.com.scrum.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,6 +26,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.scrum.entity.enums.Const;
+import br.com.scrum.util.exception.BusinessException;
 
 @SuppressWarnings("serial")
 @Entity
@@ -53,7 +55,8 @@ public class Project implements Serializable
 	@Temporal(TemporalType.DATE)
 	@Column(name = "LAST_DATE", nullable = false)
 	private Date lastDate;
-
+	
+	@NotBlank(message = "company is a required field")
 	@Column(name = "COMPANY", nullable = false, length = 60)
 	private String company;
 	
@@ -74,6 +77,42 @@ public class Project implements Serializable
 	public Project(String name) 
 	{
 		this.name = name;
+	}
+	
+	public void addUser(User membership) throws BusinessException
+	{
+		if (userAlreadyExists(membership)) {
+			throw new BusinessException("user already added");
+		}
+		users.add(membership);
+	}
+
+	private boolean userAlreadyExists(User membership)
+	{
+		if (users != null && !users.isEmpty()) {
+			for (User u : users) {
+				if (u.getName().equalsIgnoreCase(membership.getName()) && 
+					u.getRole().equals(membership.getRole())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void removeUser(User membership)
+	{
+		if (users != null && !users.isEmpty()) {
+			Iterator<User> it = users.iterator();
+			while (it.hasNext()) {
+				User member = (User) it.next();
+				if (member.getName().equalsIgnoreCase(membership.getName()) &&
+					member.getRole().equals(membership.getRole())) {
+					it.remove();
+					break;
+				}
+			}
+		}
 	}
 
 	public Integer getId() 
