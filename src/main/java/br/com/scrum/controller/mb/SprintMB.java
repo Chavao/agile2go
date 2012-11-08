@@ -36,7 +36,8 @@ public class SprintMB extends BaseBean
 		findAll();
 	}
 	
-	public void createOrSave() {
+	public void createOrSave()
+	{
 		try {
 			if (validateSprint()) return;
 			if ( sprint.getId() == null ) {
@@ -83,7 +84,8 @@ public class SprintMB extends BaseBean
 		sprints = sprintService.findAll();
 	}
 
-	public List<Project> completeProject(String query) {
+	public List<Project> completeProject(String query)
+	{
 		try {
 			if ( projects == null ) {
 				projects = new ArrayList<Project>();
@@ -95,19 +97,23 @@ public class SprintMB extends BaseBean
 		return projects = new ArrayList<Project>();
 	}
 	
-	public List<Sprint> getSprints() {
+	public List<Sprint> getSprints()
+	{
 		return sprints;		 
 	}
 
-	public Sprint getSprint() {
+	public Sprint getSprint()
+	{
 		return sprint;
 	}
 
-	public void setSprint(Sprint sprint) {
+	public void setSprint(Sprint sprint)
+	{
 		this.sprint = sprint;
 	}
 
-	public void setSprints(List<Sprint> sprints) {
+	public void setSprints(List<Sprint> sprints)
+	{
 		this.sprints = sprints;
 	}	
 

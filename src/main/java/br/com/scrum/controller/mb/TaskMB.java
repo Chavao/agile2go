@@ -81,7 +81,8 @@ public class TaskMB extends BaseBean
 		return sprints = new ArrayList<Sprint>();
 	}
 	
-	public List<SelectItem> getTaskItems() {
+	public List<SelectItem> getTaskItems()
+	{
 		if (taskItems == null) 
 		{
 			taskItems = new ArrayList<SelectItem>();

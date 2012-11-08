@@ -53,9 +53,10 @@ public class ProjectMB extends BaseBean
 			findAll();
 		} catch (BusinessException be) {
 			addErrorMessage(null, be.getMessage().toString());	
+			logger.warn(be);
 		} catch ( Exception e ) {
-			e.printStackTrace();
 			addErrorMessage("unexcepted error has ocurred");
+			logger.error(e);
 		}
 	}
 
@@ -67,8 +68,8 @@ public class ProjectMB extends BaseBean
 			findAll();
 			addInfoMessage("project removed");
 		} catch ( Exception e ) {
-			logger.error(e);
 			addErrorMessage(e.getMessage());
+			logger.error(e);
 		}		
 	}
 	
@@ -82,9 +83,10 @@ public class ProjectMB extends BaseBean
 			}
 		}catch (BusinessException be) {
 			addErrorMessage(be.getMessage());
+			logger.warn(be);
 		} catch (Exception e) {
 			addErrorMessage(e.getMessage());
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 	
