@@ -20,28 +20,28 @@
 
 		<h:form id="form">
 			<h:panelGrid cellpadding="0" cellspacing="0" styleClass="formulario">
-				<h:panelGrid cellpadding="0" cellspacing="0">
+				<h:panelGrid cellspacing="1">
 					<h:outputLabel value="&nbsp;Name" for="nome"/>
 					<p:inputText id="nome"
 						value="#{projectMB.project.name}"
 						size="20"
 						style="width:305px;" />
 				</h:panelGrid>
-				<h:panelGrid cellpadding="0" cellspacing="0">
+				<h:panelGrid cellspacing="1">
 					<h:outputLabel value="&nbsp;Description" for="desc"/>
 					<p:inputTextarea id="desc"
 						value="#{projectMB.project.description}"
 						size="100"
 						style="width:305px; height:42px;" />
 				</h:panelGrid>
-				<h:panelGrid cellpadding="0" cellspacing="0">
+				<h:panelGrid cellspacing="1">
 					<h:outputLabel value="&nbsp;Deadline" for="deadline"/>
 					<p:calendar id="deadline"
 						value="#{projectMB.project.lastDate}"
 						pattern="dd/MM/yyyy"
 						size="35" />
 				</h:panelGrid>
-				<h:panelGrid cellpadding="0" cellspacing="0">
+				<h:panelGrid cellspacing="1">
 					<h:outputLabel value="&nbsp;Company" for="company"/>
 					<p:inputText id="company"
 						value="#{projectMB.project.company}"
@@ -49,19 +49,23 @@
 						style="width:305px;" />
 				</h:panelGrid>
 			</h:panelGrid>
-			<h:panelGrid cellpadding="0" cellspacing="0" columns="2">
+			<h:panelGrid cellspacing="1">
 				<p:commandButton value="+Member"
 					update="@form :formMember"
 					onclick="dialogMembers.show()"
 					immediate="true"
-					style="margin-left:55px;font-family:Ubuntu;font-size:16px;"/>
+					style="margin-left:470px;font-family:Ubuntu;font-size:16px;" />
 			</h:panelGrid>
-			<p:spacer height="20" />
 			<p:commandButton id="save"
 				value="Save"
 				action="#{projectMB.createOrSave}"
 				update="@form :growl"
-				style="margin-left:55px;font-family:Ubuntu;font-size:16px;" />
+				style="margin-left:472px;font-family:Ubuntu;font-size:16px;" />
+			<p:commandButton id="cancel"
+				value="Cancel"
+				action="add_project?faces-redirect=true"
+				immediate="true"
+				style="margin-left:11px;font-family:Ubuntu;font-size:16px;" />
 		</h:form>
 
 		<h:panelGroup id="groupMembership">
@@ -80,7 +84,6 @@
 									<p:selectOneMenu id="member"
 										value="#{projectMB.membership}"
 										converter="genericConverter"
-										styleClass="ui-state-default ui-corner-all}"
 										style="height:22px; width:344px;">
 										<f:selectItems value="#{projectMB.membershipsItems}" />
 									</p:selectOneMenu>
