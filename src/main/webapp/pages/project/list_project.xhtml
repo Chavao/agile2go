@@ -75,21 +75,16 @@
 						</p:cellEditor>
 					</p:column>
 					<p:column headerText="Edit" styleClass="dataTableOptions">
-						<p:rowEditor>
-							<h:outputText title="edit" />
-						</p:rowEditor>
+						<p:commandLink action="#{projectMB.redirectToEdit()}" process="@this">
+							<h:graphicImage value="/resources/img/edit-18.png" title="update" />
+							<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
+						</p:commandLink>
 					</p:column>
-					<p:column styleClass="dataTableOptions">				
-					<p:commandLink onclick="confirmation2.show()">
-						<h:graphicImage value="/resources/img/editar16.png" title="update" />
-						<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
-					</p:commandLink>
-				</p:column>
-				<p:column styleClass="dataTableOptions">
-					<p:commandLink onclick="confirmation.show()">										
-						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
-						<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
-					</p:commandLink>
+					<p:column styleClass="dataTableOptions">
+						<p:commandLink onclick="confirmation.show()">										
+							<h:graphicImage value="/resources/img/delete-18.png" title="remove" />
+							<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
+						</p:commandLink>
 				</p:column>
 			</p:dataTable>
 			</h:panelGroup>

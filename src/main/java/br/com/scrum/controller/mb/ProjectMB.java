@@ -95,6 +95,11 @@ public class ProjectMB extends BaseBean
 		addInfoMessage("membership successfully removed");
 	}
 	
+	public String redirectToEdit()
+	{
+		return "/pages/project/add_project?id=" + project.getId() + "faces-redirect=true";
+	}
+	
 	public List<SelectItem> getMembershipsItems()
 	{
 		if (membershipsItems == null) {
@@ -105,6 +110,13 @@ public class ProjectMB extends BaseBean
 			}
 		}
 		return membershipsItems;
+	}
+	
+	public void loadProject()
+	{
+		if (project != null && project.getId() != null) {
+			project = projectService.withId(project.getId());
+		}
 	}
 
 	private void findAll()
