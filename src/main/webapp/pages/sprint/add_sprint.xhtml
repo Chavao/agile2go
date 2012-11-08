@@ -12,24 +12,25 @@
 	<ui:define name="body">
 			<h:form id="form">
 				<h:panelGrid id="panelGrid" columns="1" cellpadding="3" cellspacing="3" styleClass="formulario">
-					<h:panelGrid cellpadding="0" cellspacing="0">
+					<h:panelGrid cellspacing="0">
 						<h:outputLabel value="&nbsp;Name" />
 						<p:inputText id="name" value="#{sprintMB.sprint.name}"
 							size="10" style="width:333px;" />
 					</h:panelGrid>
-					<h:outputLabel value="&nbsp;Project" />
+					<h:panelGrid cellspacing="0">
+						<h:outputLabel value="&nbsp;Project" />
 						<p:autoComplete id="project"
-										value="#{sprintMB.sprint.project}"
-										converter="#{projectConverter}"
-										completeMethod="#{sprintMB.completeProject}"
-										var="p" itemValue="#{p}" itemLabel="#{p.name}"
-										minQueryLength="3"
-										maxResults="5"
-										queryDelay="500"
-										required="true"
-										requiredMessage="project is a required field" 
-										size="38"
-										style="width:305px;">
+							value="#{sprintMB.sprint.project}"
+							converter="#{projectConverter}"
+							completeMethod="#{sprintMB.completeProject}"
+							var="p" itemValue="#{p}" itemLabel="#{p.name}"
+							minQueryLength="3"
+							maxResults="5"
+							queryDelay="500"
+							required="true"
+							requiredMessage="project is a required field"
+							size="38"
+							style="width:305px;">
 							<p:column>
 								<div style="text-align: left;">
 									name:#{p.name} - deadline:
@@ -37,8 +38,9 @@
 										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
 									</h:outputText>
 								</div>
-							</p:column>							
-						</p:autoComplete>													
+							</p:column>
+						</p:autoComplete>
+					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0">
 						<h:outputLabel value="&nbsp;Start Date" />
 						<p:calendar id="data"
@@ -76,7 +78,7 @@
 								 value="Save"
 								 action="#{sprintMB.createOrSave}"
 								 update="@form :growl"
-								 style="margin-left:80px;font-family:Ubuntu;font-size:16px;" />
+								 style="margin-left:475px;font-family:Ubuntu;font-size:16px;" />
 			</h:form>
 		</ui:define>
 </ui:composition>
