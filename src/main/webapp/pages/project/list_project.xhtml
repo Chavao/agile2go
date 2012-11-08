@@ -16,7 +16,11 @@
 			<p:dataTable id="dataTable" var="project" editable="true" paginatorPosition="bottom" 
 				value="#{projectMB.projects}" paginator="true" rows="5" style="width:1070px; margin-top:70px; margin-left:100px;" 
 				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3">
-					<p:column headerText="Projects" styleClass="inputDataTable" filterBy="#{project.name}" filterStyle="width:100px;">
+					<p:column headerText="Projects"
+						filterBy="#{project.name}"
+						sortBy="#{project.name}"
+						styleClass="inputDataTable"
+						filterStyle="width:100px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{project.name}" style="width: 70%" />
@@ -26,17 +30,25 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Description" styleClass="inputDataTable" filterBy="#{project.description}" filterStyle="width:140px;">
+					<p:column headerText="Description"
+						filterBy="#{project.description}"
+						sortBy="#{project.description}"
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{project.description}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText value="#{project.description}" style="width: 95%" />
+								<p:inputTextarea value="#{project.description}" style="width: 95%" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Deadline" styleClass="inputDataTable" filterBy="#{project.lastDate}" filterStyle="width:70px;">
+					<p:column headerText="Deadline"
+						filterBy="#{project.lastDate}"
+						sortBy="#{project.lastDate}"
+						styleClass="inputDataTable"
+						filterStyle="width:70px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{project.lastDate}">
@@ -48,7 +60,11 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Company" styleClass="inputDataTable" filterBy="#{project.lastDate}" filterStyle="width:70px;">
+					<p:column headerText="Company"
+						styleClass="inputDataTable"
+						filterBy="#{project.lastDate}"
+						sortBy="#{project.company}"
+						filterStyle="width:70px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{project.company}" />
@@ -77,29 +93,41 @@
 				</p:column>
 			</p:dataTable>
 			</h:panelGroup>
-			<!-- <p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
-				<p:graphicImage value="/resources/img/loading.gif" />
-			</p:blockUI> -->	
-										
 		</h:form>
 
 		<p:confirmDialog message="Are you sure do you want remove?"
-			header="remove" severity="alert" widgetVar="confirmation"
+			header="remove"
+			severity="alert"
+			widgetVar="confirmation"
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogSave">
-				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{projectMB.delete}" oncomplete="confirmation.hide()"
+				<p:commandButton value="Yes"
+					update=":form:tableGroup :growl"
+					actionListener="#{projectMB.delete}"
+					oncomplete="confirmation.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
-				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No"
+					onclick="confirmation.hide()"
+					type="button"
+					style="font-family:Ubuntu;font-size:16px;" />
 			</h:form>
 		</p:confirmDialog>
 		
 		<p:confirmDialog message="Are you sure do you want update?"
-			header="edit" severity="alert" widgetVar="confirmation2"
+			header="edit"
+			severity="alert"
+			widgetVar="confirmation2"
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogEdit">
-				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{projectMB.createOrSave}" oncomplete="confirmation2.hide()"
+				<p:commandButton value="Yes"
+					update=":form:tableGroup :growl"
+					actionListener="#{projectMB.createOrSave}"
+					oncomplete="confirmation2.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
-				<p:commandButton value="No" onclick="confirmation2.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No"
+					onclick="confirmation2.hide()"
+					type="button"
+					style="font-family:Ubuntu;font-size:16px;" />
 			</h:form>
 		</p:confirmDialog>
 

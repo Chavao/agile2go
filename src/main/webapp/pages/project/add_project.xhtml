@@ -58,20 +58,24 @@
 
 		<h:panelGroup id="groupMembership">
 			<p:dialog header="Add a Membership to the Project"
-				widgetVar="dialogMembers" width="550" height="250">
+				modal="true"
+				widgetVar="dialogMembers"
+				showEffect="explode"
+				hideEffect="explode"
+				width="550" height="250">
 				<h:form id="formMember">
 					<h:panelGrid cellspacing="10">
 						<h:panelGrid cellpadding="0" cellspacing="0">
 							<h:panelGrid cellpadding="0" cellspacing="0">
 								<h:outputLabel value="&nbsp;Membership" />
 								<h:panelGrid cellpadding="0" cellspacing="0" columns="2">
-									<h:selectOneMenu id="member"
+									<p:selectOneMenu id="member"
 										value="#{projectMB.membership}"
 										converter="genericConverter"
 										styleClass="ui-state-default ui-corner-all}"
 										style="height:22px; width:344px;">
 										<f:selectItems value="#{projectMB.membershipsItems}" />
-									</h:selectOneMenu>
+									</p:selectOneMenu>
 									<p:commandLink title="add"
 										action="#{projectMB.addMember}"
 										process="@this member"
