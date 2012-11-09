@@ -1,6 +1,5 @@
 package br.com.scrum.service;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -11,7 +10,8 @@ import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.Sprint;
 import br.com.scrum.util.exception.BusinessException;
 
-public class SprintService extends PersistenceUtil implements Serializable 
+@SuppressWarnings("serial")
+public class SprintService extends PersistenceUtil
 {
 	public void create(Sprint sprint) throws Exception 
 	{
@@ -74,6 +74,4 @@ public class SprintService extends PersistenceUtil implements Serializable
 		return null;
 	}
 	
-	private static final long serialVersionUID = 7484077875891258960L;
-
 }

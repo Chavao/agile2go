@@ -6,27 +6,38 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.jboss.logging.Logger;
+import org.primefaces.event.SelectEvent;
 
 import br.com.scrum.entity.Project;
 import br.com.scrum.entity.Sprint;
+import br.com.scrum.entity.Task;
 import br.com.scrum.service.ProjectService;
 import br.com.scrum.service.SprintService;
+import br.com.scrum.service.TaskService;
+import br.com.scrum.util.exception.BusinessException;
 
 @SuppressWarnings("serial")
 @Named
 @ViewScoped
 public class SprintMB extends BaseBean
-{
+{	
+	@Inject private Logger logger;
 	@Inject private SprintService sprintService;	
 	@Inject private ProjectService projectService;
+	@Inject private TaskService taskService;
 		
-	private Sprint sprint = new Sprint();		
+	private Sprint sprint = new Sprint();
+	private Task task = new Task();
+	
 	private List<Sprint> sprints;
 	private List<Project> projects;
+	private List<SelectItem> taskItems;
 	
 	private boolean notOk;
 	
@@ -51,8 +62,10 @@ public class SprintMB extends BaseBean
 			findAll();
 		} catch ( ConstraintViolationException cve ) {
 			addErrorMessage("sprint already exsists");
+			logger.error(cve);
 		} catch ( Exception e ) {
 			addErrorMessage("a excepted has ocurred!");
+			logger.fatal(e);
 		}
 	}
 	
@@ -77,11 +90,48 @@ public class SprintMB extends BaseBean
 			addInfoMessage("sprint removed");
 		} catch ( Exception e ) {
 			addErrorMessage(e.getMessage());
+			logger.error(e);
 		}		
 	}
 	
 	private void findAll() {
 		sprints = sprintService.findAll();
+	}
+	
+	public void addTask()
+	{
+		try {
+			if (task != null && task.getId() != null) {
+				sprint.addTask(task);
+				task = new Task();
+				addInfoMessage("task successfully added");
+			}
+		} catch (BusinessException be) {
+			addErrorMessage(be.getMessage());
+			logger.warn(be);
+		} catch (Exception e) {
+			addErrorMessage(e.getMessage());
+			logger.error(e);
+		}
+	}
+	
+	public void removeMember()
+	{
+		sprint.removeTask(task);
+		task = new Task();
+		addInfoMessage("task successfully removed");
+	}
+	
+	public String redirectToEdit()
+	{
+		return "/pages/sprint/add_sprint?id=" + sprint.getId() + "faces-redirect=true";
+	}
+	
+	public void loadTask()
+	{
+		if (sprint != null && sprint.getId() != null) {
+			sprint = sprintService.findById(sprint.getId());
+		}
 	}
 
 	public List<Project> completeProject(String query)
@@ -93,8 +143,26 @@ public class SprintMB extends BaseBean
 			return projectService.searchBy(query);			
 		} catch ( Exception e ) {
 			addErrorMessage(e.getMessage());
+			logger.error(e);
 		}
 		return projects = new ArrayList<Project>();
+	}
+	
+	public void selectProject(SelectEvent e)
+	{
+		sprint.setProject((Project)e.getObject());
+	}
+	
+	public List<SelectItem> getTaskItems()
+	{
+		if (taskItems == null) {
+			taskItems = new ArrayList<SelectItem>();
+			taskItems.add(new SelectItem(null, ""));
+			for (Task t : taskService.findAll()) {
+				taskItems.add(new SelectItem(t, "#" + t.getId().toString()));
+			}
+		}
+		return taskItems;
 	}
 	
 	public List<Sprint> getSprints()
@@ -115,6 +183,36 @@ public class SprintMB extends BaseBean
 	public void setSprints(List<Sprint> sprints)
 	{
 		this.sprints = sprints;
-	}	
+	}
+
+	public Task getTask()
+	{
+		return task;
+	}
+
+	public void setTask(Task task)
+	{
+		this.task = task;
+	}
+
+	public List<Project> getProjects() 
+	{
+		return projects;
+	}
+
+	public void setProjects(List<Project> projects)
+	{
+		this.projects = projects;
+	}
+
+	public boolean isNotOk()
+	{
+		return notOk;
+	}
+
+	public void setNotOk(boolean notOk)
+	{
+		this.notOk = notOk;
+	}
 
 }

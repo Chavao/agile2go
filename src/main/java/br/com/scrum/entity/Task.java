@@ -20,10 +20,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 import br.com.scrum.entity.enums.Const;
 import br.com.scrum.entity.enums.Status;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "TASK", schema = Const.SCHEMA)
 @NamedQueries({
-		@NamedQuery(name="Task.getLastId", query = "from Task t where t.id = (select MAX( t.id ) from Task t)")
+		@NamedQuery(name="Task.getLastId",
+					query = "from Task t where t.id = (select MAX( t.id ) from Task t)"),
+					
+		@NamedQuery(name="Task.getBySprint",
+					query = "from Task t where t.sprint = :sprint")
 		})
 public class Task implements Serializable 
 {	
@@ -53,12 +58,10 @@ public class Task implements Serializable
 		
 	@ManyToOne
 	@JoinColumn(name = "SPRINT_ID", referencedColumnName = "SPRINT_ID")
-	private Sprint sprint;		
+	private Sprint sprint = new Sprint();		
 
 	public Task() 
-	{
-		sprint = new Sprint();		
-	}
+	{}
 	
 	public Integer getId() 
 	{
@@ -150,7 +153,5 @@ public class Task implements Serializable
 			return false;
 		return true;
 	}
-
-	private static final long serialVersionUID = 3651157203865611931L;
 
 }

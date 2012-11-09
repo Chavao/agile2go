@@ -65,10 +65,8 @@ public class Project implements Serializable
 	
 	@ManyToMany
 	@JoinTable(name = "user_project", schema = Const.SCHEMA,
-	joinColumns = {
-			@JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")},
-			inverseJoinColumns = {
-			@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")})
+	joinColumns = { @JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID") },
+	inverseJoinColumns = { @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID") })
 	private List<User> users = new ArrayList<User>();
 	
 	public Project() 

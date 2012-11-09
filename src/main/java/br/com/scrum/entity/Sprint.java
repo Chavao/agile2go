@@ -1,7 +1,9 @@
 package br.com.scrum.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,7 +24,9 @@ import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.scrum.entity.enums.Const;
+import br.com.scrum.util.exception.BusinessException;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "SPRINT", schema = Const.SCHEMA)
 @NamedQueries({
@@ -64,15 +68,47 @@ public class Sprint implements Serializable
 
 	@ManyToOne
 	@JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")	
-	private Project project;	
+	private Project project = new Project();	
 	
-	@OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
-	private List<Task> tasks;
+	@OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Task> tasks = new ArrayList<Task>();
 
 	public Sprint() 
+	{}		
+	
+	public void addTask(Task task) throws BusinessException
 	{
-		project = new Project();
-	}		
+		if (taskAlreadyExists(task)) {
+			throw new BusinessException("user already added");
+		}
+		tasks.add(task);
+	}
+
+	private boolean taskAlreadyExists(Task task)
+	{
+		if (tasks != null && !tasks.isEmpty()) {
+			for (Task t : tasks) {
+				if (t.equals(task)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void removeTask(Task task)
+	{
+		if (tasks != null && !tasks.isEmpty()) {
+			Iterator<Task> it = tasks.iterator();
+			while (it.hasNext()) {
+				Task t = (Task) it.next();
+				if (t.equals(task)) {
+					it.remove();
+					break;
+				}
+			}
+		}
+	}
 
 	public Integer getId() 
 	{
@@ -180,8 +216,6 @@ public class Sprint implements Serializable
 			return false;
 		return true;
 	}		
-
-	private static final long serialVersionUID = 4897729582058383675L;	
 
 }
 

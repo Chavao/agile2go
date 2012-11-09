@@ -1,12 +1,16 @@
 package br.com.scrum.service;
 
-import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
+import br.com.scrum.controller.util.Assert;
 import br.com.scrum.dao.PersistenceUtil;
+import br.com.scrum.entity.Sprint;
 import br.com.scrum.entity.Task;
 
-public class TaskService extends PersistenceUtil implements Serializable 
+@SuppressWarnings("serial")
+public class TaskService extends PersistenceUtil
 {
 	public void create(Task task) throws Exception 
 	{
@@ -40,7 +44,18 @@ public class TaskService extends PersistenceUtil implements Serializable
 	{
 		return super.findAll(Task.class);
 	}
-
-	private static final long serialVersionUID = 9002969380414395854L;
+	
+	public List<Task> searchBy(Sprint sprint)
+	{
+		Assert.notNull(sprint, "sprint was null");
+		try {
+			return super.findByNamedQuery("Task.getBySprint", sprint);
+		} catch (NoResultException nre) {
+			System.out.println("No sprint found with paramters [" + sprint + "] " + nre);
+		} catch (Exception e) {
+			System.out.println("Error fetching the sprint " + e);
+		}
+		return null;
+	}
 	
 }

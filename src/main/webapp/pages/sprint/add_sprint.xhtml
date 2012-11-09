@@ -39,6 +39,7 @@
 									</h:outputText>
 								</div>
 							</p:column>
+							<p:ajax event="itemSelect" listener="#{sprintMB.selectProject}" update=":form:addTaskBtn" process="@this" />
 						</p:autoComplete>
 					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0">
@@ -73,13 +74,110 @@
 									 size="10" />						
 					</h:panelGrid>
 				</h:panelGrid>
-
+				<h:panelGrid cellspacing="1">
+					<p:commandButton id="addTaskBtn"
+						value="+Task"
+						update="@form :formTasks"
+						onclick="dialogTasks.show()"
+						immediate="true"
+						style="margin-left:470px;font-family:Ubuntu;font-size:16px;" />
+				</h:panelGrid>
 				<p:commandButton id="saveBtn"
-								 value="Save"
-								 action="#{sprintMB.createOrSave}"
-								 update="@form :growl"
-								 style="margin-left:475px;font-family:Ubuntu;font-size:16px;" />
+							value="Save"
+							action="#{sprintMB.createOrSave}"
+							update="@form :growl"
+							style="margin-left:475px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton id="cancel"
+					value="Cancel"
+					action="add_sprint?faces-redirect=true"
+					immediate="true"
+					style="margin-left:11px;font-family:Ubuntu;font-size:16px;" />
 			</h:form>
+			
+			<h:panelGroup id="groupTask">
+			<p:dialog header="Add a Task to the Sprints"
+				modal="true"
+				widgetVar="dialogTasks"
+				showEffect="explode"
+				hideEffect="explode"
+				width="657" height="250">
+				<h:form id="formTasks">
+					<h:panelGrid cellspacing="10">
+						<h:panelGrid cellpadding="0" cellspacing="0">
+							<h:panelGrid cellpadding="0" cellspacing="0">
+								<h:outputLabel value="&nbsp;Task" />
+								<h:panelGrid cellpadding="0" cellspacing="0" columns="2">
+									<p:selectOneMenu id="task"
+										value="#{sprintMB.task}"
+										converter="genericConverter"
+										style="height:22px; width:344px;">
+										<f:selectItems value="#{sprintMB.taskItems}" />
+									</p:selectOneMenu>
+									<p:commandLink title="add"
+										action="#{sprintMB.addTask}"
+										process="@this task"
+										update="tableTask :growl"
+										style="margin-top:10px">
+										<h:graphicImage title="Add" url="/resources/img/add-18.png" />
+									</p:commandLink>
+								</h:panelGrid>
+							</h:panelGrid>
+						</h:panelGrid>
+						<h:panelGrid>
+							<p:dataTable id="tableTask"
+								value="#{sprintMB.sprint.tasks}"
+								var="task"
+								emptyMessage="None tasks at this sprint."
+								paginator="true"
+								paginatorPosition="bottom" rows="5"
+								style="width: 600px;">
+								<p:column>
+									<f:facet name="header">ID</f:facet>
+									<h:outputText value="#{task.id}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">Story</f:facet>
+									<h:outputText value="#{task.storie}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">Status</f:facet>
+									<h:outputText value="#{task.status}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">Priority</f:facet>
+									<h:outputText value="#{task.priority}" />
+								</p:column>
+								<p:column style="width: 40px; text-align: center;">
+									<p:commandLink onclick="confirmDialogTask.show()">
+										<h:graphicImage title="Excluir" url="/resources/img/delete-18.png" />
+										<f:setPropertyActionListener value="#{task}" target="#{sprintMB.task}" />
+									</p:commandLink>
+								</p:column>
+							</p:dataTable>
+						</h:panelGrid>
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+		</h:panelGroup>
+		
+		<p:confirmDialog message="Are you sure do you want remove?"
+			header="remove"
+			severity="alert"
+			widgetVar="confirmDialogTask"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="formDialogRemove">
+				<p:commandButton value="Yes"
+					update=":formTasks :growl"
+					actionListener="#{sprintMB.removeTask}"
+					oncomplete="confirmDialogTask.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No"
+					onclick="confirmDialogTask.hide()"
+					type="button"
+					style="font-family:Ubuntu;font-size:16px;" />
+			</h:form>
+		</p:confirmDialog>
+			
 		</ui:define>
 </ui:composition>
 </body> 

@@ -115,7 +115,7 @@
 								</p:column>
 								<p:column style="width: 40px; text-align: center;">
 									<p:commandLink onclick="confirmDialogMember.show()">
-										<h:graphicImage title="Excluir" url="/resources/img/excluir16.png" />
+										<h:graphicImage title="Excluir" url="/resources/img/delete-18.png" />
 										<f:setPropertyActionListener value="#{membership}" target="#{projectMB.membership}" />
 									</p:commandLink>
 								</p:column>
@@ -134,11 +134,11 @@
 			<h:form id="formDialogRemove">
 				<p:commandButton value="Yes"
 					update=":formMember :growl"
+					oncomplete="confirmDialogMember.hide()"
 					actionListener="#{projectMB.removeMember}"
-					oncomplete="confirmation.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="No"
-					onclick="confirmation.hide()"
+					onclick="confirmDialogMember.hide()"
 					type="button"
 					style="font-family:Ubuntu;font-size:16px;" />
 			</h:form>
