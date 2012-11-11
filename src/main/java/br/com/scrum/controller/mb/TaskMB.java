@@ -66,12 +66,23 @@ public class TaskMB extends BaseBean
 			addErrorMessage(e.getMessage());
 		}		
 	}
+	
+	public String redirectToEdit()
+	{
+		return "/pages/task/add_task?id=" + task.getId() + "faces-redirect=true";
+	}
+	
+	public void loadTask()
+	{
+		if (task != null && task.getId() != null) {
+			task = taskService.findById(task.getId());
+		}
+	}
 
 	public List<Sprint> completeSprint(String query) 
 	{
 		try {
-			if ( sprints == null ) 
-			{
+			if ( sprints == null )  {
 				sprints = new ArrayList<Sprint>();
 			}
 			return sprintService.searchBy(query);			
@@ -83,12 +94,10 @@ public class TaskMB extends BaseBean
 	
 	public List<SelectItem> getTaskItems()
 	{
-		if (taskItems == null) 
-		{
+		if (taskItems == null)  {
 			taskItems = new ArrayList<SelectItem>();
 			taskItems.add(new SelectItem(null, ""));
-			for (Status s : Status.values()) 
-			{
+			for (Status s : Status.values()) {
 				taskItems.add(new SelectItem(s, s.getDescription()));
 			}
 		}

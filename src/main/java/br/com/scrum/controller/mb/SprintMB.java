@@ -73,17 +73,18 @@ public class SprintMB extends BaseBean
 	{
 		notOk = false;
 		if (sprint.getStartDate().after(new Date())) {
-			addInfoMessage("you can not create a sprint with the start date after today");
+			addErrorMessage("you can not create a sprint with the start date after today");
 			notOk = true;
 		}
 		if (sprint.getEndDate().before(sprint.getStartDate())) {
-			addInfoMessage("you can not create a sprint with the end date before the start date");
+			addErrorMessage("you can not create a sprint with the end date before the start date");
 			notOk = true;
 		}
 		return notOk;
 	}
 	
-	public void delete() {		
+	public void delete()
+	{		
 		try {
 			sprintService.delete(sprint);
 			findAll();
@@ -94,7 +95,8 @@ public class SprintMB extends BaseBean
 		}		
 	}
 	
-	private void findAll() {
+	private void findAll()
+	{
 		sprints = sprintService.findAll();
 	}
 	
@@ -125,6 +127,13 @@ public class SprintMB extends BaseBean
 	public String redirectToEdit()
 	{
 		return "/pages/sprint/add_sprint?id=" + sprint.getId() + "faces-redirect=true";
+	}
+	
+	public void loadSprint()
+	{
+		if (sprint != null && sprint.getId() != null) {
+			sprint = sprintService.findById(sprint.getId());
+		}
 	}
 	
 	public void loadTask()

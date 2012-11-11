@@ -2,8 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"	
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:seam="http://jboss.org/seam/faces"	
       xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<f:metadata>
+	<f:viewParam name="id" value="#{sprintMB.sprint.id}" />
+	<seam:viewAction action="#{sprintMB.loadSprint}" />
+</f:metadata>
+
 <h:head>
 	<h:outputStylesheet name="content.css" library="css" />
 </h:head> 

@@ -77,13 +77,8 @@
 						</p:cellEditor>
 					</p:column>
 					<p:column styleClass="dataTableOptions">
-						<p:rowEditor>
-							<h:outputText title="edit" />
-						</p:rowEditor>
-					</p:column>
-					<p:column styleClass="dataTableOptions">
-						<p:commandLink onclick="confirmation2.show()">
-							<h:graphicImage value="/resources/img/editar16.png" title="update" />
+						<p:commandLink action="#{taskMB.redirectToEdit}" process="@this">
+							<h:graphicImage value="/resources/img/edit-18.png" title="update" />
 							<f:setPropertyActionListener target="#{taskMB.task}" value="#{task}" />
 						</p:commandLink>
 					</p:column>

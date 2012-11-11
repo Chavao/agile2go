@@ -3,7 +3,14 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:seam="http://jboss.org/seam/faces"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:metadata>
+	<f:viewParam name="id" value="#{taskMB.task.id}" />
+	<seam:viewAction action="#{taskMB.loadTask}" />
+</f:metadata>
+
 <h:head>
 	<h:outputStylesheet name="content.css" library="css" />
 </h:head>
@@ -44,7 +51,10 @@
 				<h:panelGrid columns="3" cellpadding="0" cellspacing="0">
 					<h:panelGrid cellpadding="0" cellspacing="0" style="width:100px;">
 						<h:outputLabel value="&nbsp;Priority" />
-						<p:selectOneMenu value="#{taskMB.task.priority}" required="true" requiredMessage="priority is a required field" style="width:70px;">
+						<p:selectOneMenu value="#{taskMB.task.priority}"
+							required="true"
+							requiredMessage="priority is a required field"
+							style="width:70px;">
 							<f:selectItem itemLabel=" " itemValue=" " />
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />

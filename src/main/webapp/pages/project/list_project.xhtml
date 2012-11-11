@@ -95,8 +95,8 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Edit" styleClass="dataTableOptions">
-						<p:commandLink action="#{projectMB.redirectToEdit()}" process="@this">
+					<p:column styleClass="dataTableOptions">
+						<p:commandLink action="#{projectMB.redirectToEdit}" process="@this">
 							<h:graphicImage value="/resources/img/edit-18.png" title="update" />
 							<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
 						</p:commandLink>
