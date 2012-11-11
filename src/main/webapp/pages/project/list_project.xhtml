@@ -13,9 +13,30 @@
 		
 		<h:form id="form">		
 			<h:panelGroup id="tableGroup">								
-			<p:dataTable id="dataTable" var="project" editable="true" paginatorPosition="bottom" 
-				value="#{projectMB.projects}" paginator="true" rows="5" style="width:1070px; margin-top:70px; margin-left:100px;" 
-				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3">
+			<p:dataTable id="dataTable"
+				value="#{projectMB.projects}"
+				var="project"
+				editable="true"
+				paginatorPosition="bottom" 
+				paginator="true" rows="5"
+				style="width:1070px; margin-top:70px; margin-left:100px;" 
+				rowsPerPageTemplate="5,10,15" 
+				cellpadding="3"
+				cellspacing="3">
+					<p:column headerText="ID"
+						filterBy="#{project.id}"
+						sortBy="#{project.id}"
+						styleClass="inputDataTable"
+						filterStyle="width:100px;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{project.id}" style="width: 70%" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{project.id}" style="width: 95%" size="20"/>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 					<p:column headerText="Projects"
 						filterBy="#{project.name}"
 						sortBy="#{project.name}"

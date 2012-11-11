@@ -35,7 +35,7 @@ import br.com.scrum.util.exception.BusinessException;
 		})
 @NamedQueries({
 	@NamedQuery(name = "Project.getByName",
-				query = "from Project p where upper(p.name) like ?")
+				query = "from Project p where upper(p.name) like name or p.id = :id or upper(p.company) like company")
 	})
 public class Project implements Serializable 
 {	
@@ -70,7 +70,7 @@ public class Project implements Serializable
 	private List<User> users = new ArrayList<User>();
 	
 	public Project() 
-	{ }
+	{}
 
 	public Project(String name) 
 	{

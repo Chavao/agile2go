@@ -24,7 +24,7 @@
 							converter="#{projectConverter}"
 							completeMethod="#{sprintMB.completeProject}"
 							var="p" itemValue="#{p}" itemLabel="#{p.name}"
-							minQueryLength="3"
+							minQueryLength="1"
 							maxResults="5"
 							queryDelay="500"
 							required="true"
@@ -39,7 +39,10 @@
 									</h:outputText>
 								</div>
 							</p:column>
-							<p:ajax event="itemSelect" listener="#{sprintMB.selectProject}" update=":form:addTaskBtn" process="@this" />
+							<p:ajax event="itemSelect"
+								listener="#{sprintMB.selectProject}"
+								update=":form:addTaskBtn"
+								process="@this" />
 						</p:autoComplete>
 					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0">
@@ -141,7 +144,7 @@
 								</p:column>
 								<p:column>
 									<f:facet name="header">Status</f:facet>
-									<h:outputText value="#{task.status}" />
+									<h:outputText value="#{task.status.description}" />
 								</p:column>
 								<p:column>
 									<f:facet name="header">Priority</f:facet>

@@ -39,6 +39,7 @@ public class MembershipMB extends BaseBean
 			} else {
 				userService.save(membership);
 			}
+			addInfoMessage("membership successfully created");
 			findAll();
 		} catch (BusinessException be) {
 			addErrorMessage(be.getMessage());

@@ -110,8 +110,4 @@ public abstract class PersistenceUtil implements Serializable
 		return clazz;
 	}
 
-	public void setGetEntityManager(EntityManager getEntityManager) {
-		this.getEntityManager = getEntityManager;
-	}
-
 }

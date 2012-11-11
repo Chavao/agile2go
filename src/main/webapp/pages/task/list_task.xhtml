@@ -12,10 +12,18 @@
 
 		<h:form id="form">
 			<h:panelGroup id="tableGroup">
-				<p:dataTable id="dataTable" var="task" editable="true"
-					paginatorPosition="bottom" value="#{taskMB.tasks}" paginator="true"
-					rows="5" rowsPerPageTemplate="5,10,15" cellpadding="3" style="width:1070px; margin-top:70px; margin-left:100px;"
-					cellspacing="3" styleClass="dataTable">
+				<p:dataTable id="dataTable"
+					value="#{taskMB.tasks}"
+					var="task"
+					editable="true"
+					paginatorPosition="bottom" 
+					paginator="true"
+					rows="5"
+					rowsPerPageTemplate="5,10,15"
+					cellpadding="3"
+					cellspacing="3"
+					style="width:1070px; margin-top:70px; margin-left:100px;"
+					styleClass="dataTable">
 					<p:column headerText="Tasks" styleClass="inputDataTable" filterBy="#{task.storie}" filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">

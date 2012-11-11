@@ -115,7 +115,7 @@ public class SprintMB extends BaseBean
 		}
 	}
 	
-	public void removeMember()
+	public void removeTask()
 	{
 		sprint.removeTask(task);
 		task = new Task();
@@ -140,7 +140,7 @@ public class SprintMB extends BaseBean
 			if ( projects == null ) {
 				projects = new ArrayList<Project>();
 			}
-			return projectService.searchBy(query);			
+			return projectService.searchBy(query.trim().toUpperCase());			
 		} catch ( Exception e ) {
 			addErrorMessage(e.getMessage());
 			logger.error(e);
@@ -159,7 +159,7 @@ public class SprintMB extends BaseBean
 			taskItems = new ArrayList<SelectItem>();
 			taskItems.add(new SelectItem(null, ""));
 			for (Task t : taskService.findAll()) {
-				taskItems.add(new SelectItem(t, "#" + t.getId().toString()));
+				taskItems.add(new SelectItem(t, "#" + t.getId().toString() + " - " + t.getStorie()));
 			}
 		}
 		return taskItems;

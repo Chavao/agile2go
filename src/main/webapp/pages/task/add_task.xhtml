@@ -20,8 +20,10 @@
 									forceSelection="true"
 									completeMethod="#{taskMB.completeSprint}"
 									var="s" itemValue="#{s}" itemLabel="#{s.name}"
-									minQueryLength="3" maxResults="5" 
-									queryDelay="500" required="true"
+									minQueryLength="1"
+									maxResults="5" 
+									queryDelay="500"
+									required="true"
 									requiredMessage="sprint is a required field"
 									size="38" style="width:305px;">
 						<p:column>

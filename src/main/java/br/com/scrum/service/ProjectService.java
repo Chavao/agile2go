@@ -66,11 +66,15 @@ public class ProjectService extends PersistenceUtil
 		return super.findAll(Project.class);
 	}		
 
-	public List<Project> searchBy(String name) 
+	public List<Project> searchBy(String query) 
 	{
-		Assert.notNull(name, "query was null");
+		Assert.notNull(query, "query was null");
 		try {
-			return super.findByNamedQuery("Project.getByName", name.toUpperCase());
+			return getEntityManager.createQuery("from Project p where upper(p.name) like :name " +
+												"or upper(p.company) like :company ", Project.class)
+					.setParameter("name", "%" + query + "%")
+					.setParameter("company", "%" + query + "%")
+					.getResultList();
 		} catch (NoResultException nre) {
 			return null;
 		}
