@@ -34,6 +34,7 @@ public class SprintMB extends BaseBean
 		
 	private Sprint sprint = new Sprint();
 	private Task task = new Task();
+	private String retorno;
 	
 	private List<Sprint> sprints;
 	private List<Project> projects;
@@ -126,7 +127,14 @@ public class SprintMB extends BaseBean
 	
 	public String redirectToEdit()
 	{
-		return "/pages/sprint/add_sprint?id=" + sprint.getId() + "faces-redirect=true";
+		return "/pages/sprint/add_sprint?id=" + sprint.getId() + "&amp;retorno=list_sprint" + "faces-redirect=true";
+	}
+	
+	public String goBack()
+	{
+		if (retorno.equalsIgnoreCase("list_sprint"))
+			return "/pages/sprint/list_sprint?" + "faces-redirect=true";
+		return "";
 	}
 	
 	public void loadSprint()
@@ -224,4 +232,14 @@ public class SprintMB extends BaseBean
 		this.notOk = notOk;
 	}
 
+	public String getRetorno()
+	{
+		return retorno;
+	}
+
+	public void setRetorno(String retorno)
+	{
+		this.retorno = retorno;
+	}
+	
 }

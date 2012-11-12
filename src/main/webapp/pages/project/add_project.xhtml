@@ -9,6 +9,7 @@
 	
 <f:metadata>
 	<f:viewParam name="id" value="#{projectMB.project.id}" />
+	<f:viewParam name="retorno" value="#{projectMB.retorno}" />
 	<seam:viewAction action="#{projectMB.loadProject}" />
 </f:metadata>
 
@@ -19,6 +20,13 @@
 	<ui:define name="body">
 
 		<h:form id="form">
+		
+			<p:commandButton value="Back"
+						action="#{projectMB.goBack}"
+						immediate="true"
+						rendered="#{projectMB.retorno != null}"
+						style="left: 820px; top: 66px;"/>
+						
 			<h:panelGrid cellpadding="0" cellspacing="0" styleClass="formulario">
 				<h:panelGrid cellspacing="1">
 					<h:outputLabel value="&nbsp;Name" for="nome"/>
@@ -50,10 +58,11 @@
 				</h:panelGrid>
 			</h:panelGrid>
 			<h:panelGrid cellspacing="1">
-				<p:commandButton value="+Member"
+				<p:commandButton value="Member"
 					update="@form :formMember"
 					onclick="dialogMembers.show()"
 					immediate="true"
+					icon="ui-icon ui-icon-search"
 					style="margin-left:470px;font-family:Ubuntu;font-size:16px;" />
 			</h:panelGrid>
 			<p:commandButton id="save"

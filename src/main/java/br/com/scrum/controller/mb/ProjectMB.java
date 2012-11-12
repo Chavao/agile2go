@@ -29,6 +29,7 @@ public class ProjectMB extends BaseBean
 	
 	private Project project = new Project();
 	private User membership = new User();
+	private String retorno;
 	
 	private List<Project> projects;
 	private List<SelectItem> membershipsItems;
@@ -99,7 +100,14 @@ public class ProjectMB extends BaseBean
 	
 	public String redirectToEdit()
 	{
-		return "/pages/project/add_project?id=" + project.getId() + "faces-redirect=true";
+		return "/pages/project/add_project?id=" + project.getId() + "&amp;retorno=list_project" + "faces-redirect=true";
+	}
+	
+	public String goBack()
+	{
+		if (retorno.equalsIgnoreCase("list_project"))
+			return "/pages/project/list_project?" + "faces-redirect=true";
+		return "";
 	}
 	
 	public List<SelectItem> getMembershipsItems()
@@ -154,6 +162,16 @@ public class ProjectMB extends BaseBean
 	public void setMembership(User membership)
 	{
 		this.membership = membership;
+	}
+
+	public String getRetorno()
+	{
+		return retorno;
+	}
+
+	public void setRetorno(String retorno)
+	{
+		this.retorno = retorno;
 	}
 
 }
