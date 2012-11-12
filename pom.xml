@@ -24,11 +24,11 @@
 	<dependencies>
 
 		<!-- comment this when openshift is being used -->
-        <dependency>
+        <!--<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>8.4-702.jdbc4</version>
-        </dependency>
+        </dependency>-->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -322,7 +322,7 @@
 				<version>7.1.1.Final</version>
 
                 <!-- comment this when openshift is being used -->
-                 <executions>
+                <!--<executions>
 					<execution>
 						<id>deploy-driver</id>
 						<phase>package</phase>
@@ -358,7 +358,7 @@
 							</resource>
 						</configuration>
 					</execution>
-                </executions> 
+                </executions> -->
  			</plugin>
 		</plugins>
 	</build>

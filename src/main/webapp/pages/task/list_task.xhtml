@@ -24,7 +24,11 @@
 					cellspacing="3"
 					style="width:1070px; margin-top:70px; margin-left:100px;"
 					styleClass="dataTable">
-					<p:column headerText="Tasks" styleClass="inputDataTable" filterBy="#{task.storie}" filterStyle="width:140px;">
+					<p:column headerText="Tasks"
+						filterBy="#{task.storie}"
+						sortBy="#{task.storie}"
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.storie}" />
@@ -34,7 +38,11 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Priority" styleClass="inputDataTable" filterBy="#{task.priority}" filterStyle="width:140px;">
+					<p:column headerText="Priority"
+						filterBy="#{task.priority}"
+						sortBy="#{task.priority}"
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.priority}" />
@@ -44,7 +52,11 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Status" styleClass="inputDataTable" filterBy="#{task.status.description}" filterStyle="width:140px;">
+					<p:column headerText="Status"
+						filterBy="#{task.status.description}"
+						sortBy="#{task.status.description}"
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.status.description}" style="width:120px;" />
@@ -56,7 +68,11 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Deadline" styleClass="inputDataTable" filterBy="#{task.hours}" filterStyle="width:140px;">
+					<p:column headerText="Deadline"
+						filterBy="#{task.hours}"
+						sortBy="#{task.hours}" 
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.hours}" />
@@ -66,7 +82,11 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Sprint" styleClass="inputDataTable" filterBy="#{task.sprint.name}" filterStyle="width:140px;">
+					<p:column headerText="Sprint"
+						filterBy="#{task.sprint.name}"
+						sortBy="#{task.sprint.name}"
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{task.sprint.name}" />

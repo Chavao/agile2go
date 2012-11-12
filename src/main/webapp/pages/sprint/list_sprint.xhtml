@@ -21,7 +21,11 @@
 				rowsPerPageTemplate="5,10,15"
 				cellpadding="3" cellspacing="3"
 				style="width:1070px; margin-top:70px; margin-left:100px;">
-				    <p:column headerText="Projects" styleClass="inputDataTable" filterBy="#{sprint.project.name}" filterStyle="width:140px;">
+				    <p:column headerText="Projects"
+				    	filterBy="#{sprint.project.name}"
+				    	sortBy="#{sprint.project.name}"
+				    	styleClass="inputDataTable"
+				    	filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{sprint.project.name}" />
@@ -31,7 +35,11 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Sprints" styleClass="inputDataTable" filterBy="#{sprint.name}" filterStyle="width:140px;">
+					<p:column headerText="Sprints"
+						filterBy="#{sprint.name}"
+						sortBy="#{sprint.name}"
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{sprint.name}" />
@@ -41,7 +49,11 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Start Date" styleClass="inputDataTable" filterBy="#{sprint.startDate}" filterStyle="width:140px;">
+					<p:column headerText="Start Date"
+						filterBy="#{sprint.startDate}"
+						sortBy="#{sprint.startDate}"
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{sprint.startDate}" style="width:100%; text-align:center;">
@@ -58,7 +70,11 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="End Date" styleClass="inputDataTable" filterBy="#{sprint.endDate}" filterStyle="width:140px;">
+					<p:column headerText="End Date"
+						filterBy="#{sprint.endDate}"
+						sortBy="#{sprint.endDate}"
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{sprint.endDate}" style="width: 100%; ">
@@ -74,7 +90,11 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Meeting" styleClass="inputDataTable" filterBy="#{sprint.dailyScrum}" filterStyle="width:140px;">
+					<p:column headerText="Meeting"
+						filterBy="#{sprint.dailyScrum}"
+						sortBy="#{sprint.dailyScrum}"
+						styleClass="inputDataTable"
+						filterStyle="width:140px;">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{sprint.dailyScrum}"/>
@@ -105,19 +125,33 @@
 			header="remove" severity="alert" widgetVar="confirmation"
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogSave">
-				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.delete}" oncomplete="confirmation.hide()"
+				<p:commandButton value="Yes"
+					update=":form:tableGroup :growl"
+					actionListener="#{sprintMB.delete}"
+					oncomplete="confirmation.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
-				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No"
+					onclick="confirmation.hide()"
+					type="button"
+					style="font-family:Ubuntu;font-size:16px;" />
 			</h:form>
 		</p:confirmDialog>
 		
 		<p:confirmDialog message="Are you sure do you want update?"
-			header="edit" severity="alert" widgetVar="confirmation2"
+			header="edit"
+			severity="alert"
+			widgetVar="confirmation2"
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogEdit">
-				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.createOrSave}" oncomplete="confirmation2.hide()"
+				<p:commandButton value="Yes"
+					update=":form:tableGroup :growl"
+					actionListener="#{sprintMB.createOrSave}"
+					oncomplete="confirmation2.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
-				<p:commandButton value="No" onclick="confirmation2.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No"
+					onclick="confirmation2.hide()"
+					type="button"
+					style="font-family:Ubuntu;font-size:16px;" />
 			</h:form>
 		</p:confirmDialog>
 
