@@ -1,5 +1,5 @@
-package br.com.scrum.test.project;
-//package br.com.scrum.test.project;
+package br.com.scrum.test.arquillian.project;
+//package br.com.scrum.test.arquillian.project;
 //
 //import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.assertNotNull;

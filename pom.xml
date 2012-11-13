@@ -49,10 +49,17 @@
 
 		<!-- jsf -->
 		<dependency>
-			<groupId>org.jboss.spec.javax.faces</groupId>
-			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
-			<scope>provided</scope>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.2.0-m05</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.0-m05</version>
+		</dependency>
+		
 
 		<!-- servlet -->
 		<dependency>
@@ -144,11 +151,13 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.1.6.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator-annotation-processor</artifactId>
+			<artifactId>hibernate-validator</artifactId>
 			<scope>provided</scope>
+			<version>4.3.0.Final</version>
 		</dependency>
 
 		<!-- seam-security -->
@@ -260,13 +269,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.jboss.bom</groupId>
-				<artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-				<version>${jboss.bom.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -296,6 +298,7 @@
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
+					<logLevel>INFO</logLevel>
 				</configuration>
 			</plugin>
 
@@ -375,7 +378,8 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<version>2.4.3</version>
 						<configuration>
-							<skip>true</skip>
+							<!-- <skip>true</skip> -->
+							<logLevel>INFO</logLevel>
 						</configuration>
 					</plugin>
 					<plugin>

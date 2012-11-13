@@ -1,4 +1,5 @@
-//package br.com.scrum.test.project;
+package br.com.scrum.test.arquillian.project;
+//package br.com.scrum.test.arquillian.project;
 //
 //import org.jboss.shrinkwrap.api.spec.WebArchive;
 //

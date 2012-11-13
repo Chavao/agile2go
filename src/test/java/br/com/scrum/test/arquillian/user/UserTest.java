@@ -1,4 +1,5 @@
-//package br.com.scrum.test.user;
+package br.com.scrum.test.arquillian.user;
+//package br.com.scrum.test.arquillian.user;
 //
 //import static org.junit.Assert.assertNotNull;
 //
