@@ -31,8 +31,8 @@
 					<h:outputLabel value="&nbsp;User Role" for="role" />
 					<p:selectOneMenu id="role" 
 						value="#{membershipMB.membership.role}"
-						converter="#{UserRoleConverter}"
-						style="width:150px;">
+						converter="#{userRoleConverter}"
+						style="width:150px; color: #79B7E7;">
 						<f:selectItems value="#{membershipMB.membershipsItems}" />
 					</p:selectOneMenu>
 				</h:panelGrid>

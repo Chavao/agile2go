@@ -17,6 +17,7 @@ import br.com.scrum.entity.User;
 import br.com.scrum.service.ProjectService;
 import br.com.scrum.service.UserService;
 import br.com.scrum.util.exception.BusinessException;
+import br.com.scrum.util.exception.ObjectAlreadyExistsException;
 
 @SuppressWarnings("serial")
 @Named
@@ -52,7 +53,7 @@ public class ProjectMB extends BaseBean
 				addInfoMessage("project successfully updated");
 			}
 			findAll();
-		} catch (BusinessException be) {
+		} catch (ObjectAlreadyExistsException be) {
 			addErrorMessage(null, be.getMessage().toString());	
 			logger.warn(be);
 		} catch ( Exception e ) {
@@ -82,7 +83,7 @@ public class ProjectMB extends BaseBean
 				membership = new User();
 				addInfoMessage("membership successfully added");
 			}
-		}catch (BusinessException be) {
+		} catch (BusinessException be) {
 			addErrorMessage(be.getMessage());
 			logger.warn(be);
 		} catch (Exception e) {
@@ -125,7 +126,7 @@ public class ProjectMB extends BaseBean
 	public void loadProject()
 	{
 		if (project != null && project.getId() != null) {
-			project = projectService.withId(project.getId());
+			project = projectService.findById(project.getId());
 		}
 	}
 

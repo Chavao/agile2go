@@ -39,6 +39,9 @@ import br.com.scrum.util.exception.BusinessException;
 	})
 public class Project implements Serializable 
 {	
+	public static final String NAME = "name"; 
+	public static final String COMPANY = "company";
+	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PROJECT_ID")

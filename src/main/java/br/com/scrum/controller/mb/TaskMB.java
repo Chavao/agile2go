@@ -29,6 +29,7 @@ public class TaskMB extends BaseBean
 	private List<Task> tasks;
 	private List<Sprint> sprints;
 	private List<SelectItem> taskItems;
+	private List<SelectItem> statusItems;
 	
 	@PostConstruct
 	public void init()
@@ -104,6 +105,18 @@ public class TaskMB extends BaseBean
 		return taskItems;
 	}
 	
+	public List<SelectItem> getStatusItems()
+	{
+		if (statusItems == null) {
+			statusItems = new ArrayList<SelectItem>();
+			statusItems.add(new SelectItem(null, ""));
+			for (Status s : Status.values()) {
+				statusItems.add(new SelectItem(s, s.getDescription()));
+			}
+		}
+		return statusItems;
+	}
+
 	private void findAll()
 	{
 		tasks = taskService.findAll();

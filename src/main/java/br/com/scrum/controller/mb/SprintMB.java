@@ -10,7 +10,6 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.jboss.logging.Logger;
 import org.primefaces.event.SelectEvent;
 
@@ -21,6 +20,7 @@ import br.com.scrum.service.ProjectService;
 import br.com.scrum.service.SprintService;
 import br.com.scrum.service.TaskService;
 import br.com.scrum.util.exception.BusinessException;
+import br.com.scrum.util.exception.ObjectAlreadyExistsException;
 
 @SuppressWarnings("serial")
 @Named
@@ -61,12 +61,12 @@ public class SprintMB extends BaseBean
 				addInfoMessage("sprint successfully saved");
 			}
 			findAll();
-		} catch ( ConstraintViolationException cve ) {
-			addErrorMessage("sprint already exsists");
-			logger.error(cve);
+		} catch ( ObjectAlreadyExistsException oaee ) {
+			addErrorMessage(null, oaee.getMessage());
+			logger.warn(oaee);
 		} catch ( Exception e ) {
 			addErrorMessage("a excepted has ocurred!");
-			logger.fatal(e);
+			logger.error(e);
 		}
 	}
 	
@@ -139,9 +139,8 @@ public class SprintMB extends BaseBean
 	
 	public void loadSprint()
 	{
-		if (sprint != null && sprint.getId() != null) {
+		if (sprint != null && sprint.getId() != null) 
 			sprint = sprintService.findById(sprint.getId());
-		}
 	}
 	
 	public void loadTask()
@@ -154,7 +153,7 @@ public class SprintMB extends BaseBean
 	public List<Project> completeProject(String query)
 	{
 		try {
-			if ( projects == null ) {
+			if (projects == null) {
 				projects = new ArrayList<Project>();
 			}
 			return projectService.searchBy(query.trim().toUpperCase());			
@@ -175,8 +174,10 @@ public class SprintMB extends BaseBean
 		if (taskItems == null) {
 			taskItems = new ArrayList<SelectItem>();
 			taskItems.add(new SelectItem(null, ""));
-			for (Task t : taskService.findAll()) {
-				taskItems.add(new SelectItem(t, "#" + t.getId().toString() + " - " + t.getStorie()));
+			if (sprint != null && sprint.getId() != null) {
+				for (Task t : taskService.searchBy(sprint)) {
+					taskItems.add(new SelectItem(t, "#" + t.getId().toString() + " - " + t.getStorie()));
+				}
 			}
 		}
 		return taskItems;

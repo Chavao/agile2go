@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 import br.com.scrum.controller.util.Assert;
 import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.Project;
-import br.com.scrum.util.exception.BusinessException;
+import br.com.scrum.util.exception.ObjectAlreadyExistsException;
 
 @SuppressWarnings("serial")
 public class ProjectService extends PersistenceUtil
@@ -16,31 +16,19 @@ public class ProjectService extends PersistenceUtil
 	public void create(Project project) throws Exception 
 	{
 		try {
-			Project exist = exists(project.getName());
-			if (exist != null) {
-				throw new BusinessException("project already exists");
-			}
+			if (projectAlreadyExists(project)) 
+				throw new ObjectAlreadyExistsException(project.getName() + " already exists");
 			super.create(project);			
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
-	private Project exists(String name)
-	{
-		TypedQuery<Project> query = getEntityManager.createQuery("from Project p where p.name = :name", Project.class);
-		query.setParameter("name", name);
-		try {
-			return query.getSingleResult();
-		}
-		catch (NoResultException e) {
-			return null;
-		}
-	}
-
 	public void save(Project project) throws Exception 
 	{	
 		try {
+			if (projectAlreadyExists(project)) 
+				throw new ObjectAlreadyExistsException(project.getName() + " already exists");
 			super.save(project);				
 		} catch (Exception e ) {
 			throw e;	
@@ -55,8 +43,20 @@ public class ProjectService extends PersistenceUtil
 			throw e;
 		}
 	}
+	
+	private boolean projectAlreadyExists(Project project)
+	{
+		TypedQuery<Project> query = getEntityManager.createQuery("from Project p where p.name = :name", Project.class);
+		query.setParameter(Project.NAME, project.getName());
+		try {
+			return query.getSingleResult() != null;
+		}
+		catch (NoResultException e) {
+			return false;
+		}
+	}
 
-	public Project withId(Integer id) 
+	public Project findById(Integer id) 
 	{
 		return super.findById(Project.class, id);
 	}
@@ -72,8 +72,8 @@ public class ProjectService extends PersistenceUtil
 		try {
 			return getEntityManager.createQuery("from Project p where upper(p.name) like :name " +
 												"or upper(p.company) like :company ", Project.class)
-					.setParameter("name", "%" + query + "%")
-					.setParameter("company", "%" + query + "%")
+					.setParameter(Project.NAME, "%" + query + "%")
+					.setParameter(Project.COMPANY, "%" + query + "%")
 					.getResultList();
 		} catch (NoResultException nre) {
 			return null;

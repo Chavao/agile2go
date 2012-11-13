@@ -17,18 +17,20 @@
 					showDetail="false" />
 				<div class="inputs">
 					<h:panelGrid style="margin-left: 80px;">
-						<h:outputLabel value="Sign In" style="margin-left: 68px;" />
+						<h:outputLabel id="signIn" value="Sign In" style="margin-left: 68px;" />
 						<p:inputText value="#{authenticationMB.user.login}" required="true"
 							requiredMessage="sign in is a required type"
 							style="width:190px;height:30px;" />
 
-						<h:outputLabel value="Password" style="margin-left: 68px;" />
+						<h:outputLabel id="password" value="Password" style="margin-left: 68px;" />
 						<p:password value="#{authenticationMB.user.password}" required="true"
 							requiredMessage="password is a required type"
 							style="width:190px;height:30px;" />
 
-						<p:commandButton action="#{authenticationMB.authenticate}"
-							value="Login" update="@form growl"
+						<p:commandButton id="login" 
+							action="#{authenticationMB.authenticate}"
+							value="Login"
+							update="@form growl"
 							style="margin-left:61px; font-family:Ubuntu;font-size:16px;" />
 					</h:panelGrid>
 				</div>

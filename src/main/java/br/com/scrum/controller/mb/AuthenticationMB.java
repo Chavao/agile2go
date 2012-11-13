@@ -1,7 +1,6 @@
 package br.com.scrum.controller.mb;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
@@ -16,7 +15,7 @@ import br.com.scrum.service.UserService;
 @SuppressWarnings("serial")
 @Named
 @RequestScoped
-public class AuthenticationMB extends BaseBean implements Serializable 
+public class AuthenticationMB extends BaseBean
 {	
 	@Inject private UserService userService;
 	@Inject private UserLogged userLogged;

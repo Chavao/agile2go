@@ -5,10 +5,9 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
-import br.com.scrum.controller.util.Assert;
 import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.Sprint;
-import br.com.scrum.util.exception.BusinessException;
+import br.com.scrum.util.exception.ObjectAlreadyExistsException;
 
 @SuppressWarnings("serial")
 public class SprintService extends PersistenceUtil
@@ -16,31 +15,19 @@ public class SprintService extends PersistenceUtil
 	public void create(Sprint sprint) throws Exception 
 	{
 		try {
-			Sprint exist = exists(sprint.getName());
-			if (exist != null) {
-				throw new BusinessException("sprint already exists");
-			}
+			if (sprintNameAlreadyExists(sprint))
+				throw new ObjectAlreadyExistsException(sprint.getName() + " already exists");
 			super.create(sprint);			
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 	
-	private Sprint exists(String name)
-	{
-		TypedQuery<Sprint> query = getEntityManager.createQuery("from Sprint s where s.name = :name", Sprint.class);
-		query.setParameter(Sprint.NAME, name);
-		try {
-			return query.getSingleResult();
-		}
-		catch (NoResultException e) {
-			return null;
-		}
-	}
-
 	public void save(Sprint sprint) throws Exception
 	{
 		try {
+			if (sprintNameAlreadyExists(sprint))
+				throw new ObjectAlreadyExistsException(sprint.getName() + " already exists");
 			super.save(sprint);			
 		} catch (Exception e) {
 			throw e;
@@ -50,6 +37,18 @@ public class SprintService extends PersistenceUtil
 	public void delete(Sprint sprint) 
 	{
 		super.delete(getEntityManager.getReference(Sprint.class, sprint.getId()));			
+	}
+	
+	private boolean sprintNameAlreadyExists(Sprint sprint)
+	{
+		TypedQuery<Sprint> query = getEntityManager.createQuery("from Sprint s where s.name = :name", Sprint.class);
+		query.setParameter(Sprint.NAME, sprint.getName());
+		try {
+			return query.getSingleResult() != null;
+		}
+		catch (NoResultException e) {
+			return false;
+		}
 	}
 
 	public Sprint findById(Integer id) 
@@ -63,13 +62,12 @@ public class SprintService extends PersistenceUtil
 
 	public List<Sprint> searchBy(String query) 
 	{
-		Assert.notNull(query, "query was null");
 		try {
 			return super.findByNamedQuery("Sprint.getByName", query.toUpperCase());
 		} catch (NoResultException nre) {
-			System.out.println("No sprint found with paramters [" + query + "] " + nre);
+			logger.warn("No sprint found with paramters [" + query + "] " + nre);
 		} catch (Exception e) {
-			System.out.println("Error fetching the sprint " + e);
+			logger.error("Error fetching the sprint " + e);
 		}
 		return null;
 	}

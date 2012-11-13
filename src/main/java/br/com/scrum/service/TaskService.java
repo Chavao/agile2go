@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
-import br.com.scrum.controller.util.Assert;
 import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.Sprint;
 import br.com.scrum.entity.Task;
@@ -17,6 +16,7 @@ public class TaskService extends PersistenceUtil
 		try {
 			super.create(task);				
 		} catch (Exception e ) {
+			logger.error(e);
 			throw e;	
 		}
 	}
@@ -26,6 +26,7 @@ public class TaskService extends PersistenceUtil
 		try {
 			super.save(task);				
 		} catch (Exception e) {
+			logger.error(e);
 			throw e;	
 		}
 	}
@@ -47,13 +48,14 @@ public class TaskService extends PersistenceUtil
 	
 	public List<Task> searchBy(Sprint sprint)
 	{
-		Assert.notNull(sprint, "sprint was null");
 		try {
-			return super.findByNamedQuery("Task.getBySprint", sprint);
+			return getEntityManager.createNamedQuery("Task.getBySprint", Task.class)
+								   .setParameter("sprint", sprint)
+								   .getResultList();
 		} catch (NoResultException nre) {
-			System.out.println("No sprint found with paramters [" + sprint + "] " + nre);
+			logger.error("No sprint found with paramters [" + sprint + "] " + nre);
 		} catch (Exception e) {
-			System.out.println("Error fetching the sprint " + e);
+			logger.error("Error fetching the sprint " + e);
 		}
 		return null;
 	}

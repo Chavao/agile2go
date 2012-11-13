@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,11 +12,11 @@ import javax.inject.Named;
 import br.com.scrum.entity.User;
 import br.com.scrum.entity.enums.UserRole;
 import br.com.scrum.service.UserService;
-import br.com.scrum.util.exception.BusinessException;
+import br.com.scrum.util.exception.ObjectAlreadyExistsException;
 
 @SuppressWarnings("serial")
 @Named
-@ViewScoped
+@RequestScoped
 public class MembershipMB extends BaseBean
 {
 	@Inject private UserService userService;
@@ -41,12 +41,12 @@ public class MembershipMB extends BaseBean
 			}
 			addInfoMessage("membership successfully created");
 			findAll();
-		} catch (BusinessException be) {
-			addErrorMessage(be.getMessage());
-			be.printStackTrace();
+		} catch (ObjectAlreadyExistsException oaee) {
+			addErrorMessage(oaee.getMessage());
+			logger.error(oaee);
 		} catch (Exception e) {
 			addErrorMessage(e.getMessage());
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class MembershipMB extends BaseBean
 			addInfoMessage("membership removed");
 		} catch ( Exception e ) {
 			addErrorMessage(e.getMessage());
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 	

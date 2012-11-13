@@ -10,10 +10,13 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.jboss.logging.Logger;
+
 @SuppressWarnings("serial")
 public abstract class PersistenceUtil implements Serializable
 {
 	@Inject protected EntityManager getEntityManager;
+	@Inject protected Logger logger;
 	
 	protected <T> void create(final T entity)
 	{
