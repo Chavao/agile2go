@@ -10,6 +10,7 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.jboss.logging.Logger;
 import org.primefaces.event.SelectEvent;
 
@@ -20,7 +21,6 @@ import br.com.scrum.service.ProjectService;
 import br.com.scrum.service.SprintService;
 import br.com.scrum.service.TaskService;
 import br.com.scrum.util.exception.BusinessException;
-import br.com.scrum.util.exception.ObjectAlreadyExistsException;
 
 @SuppressWarnings("serial")
 @Named
@@ -61,12 +61,11 @@ public class SprintMB extends BaseBean
 				addInfoMessage("sprint successfully saved");
 			}
 			findAll();
-		} catch ( ObjectAlreadyExistsException oaee ) {
-			addErrorMessage(null, oaee.getMessage());
-			logger.warn(oaee);
-		} catch ( Exception e ) {
-			addErrorMessage("a excepted has ocurred!");
-			logger.error(e);
+		} catch (Exception e) {
+			if (e.getCause() instanceof ConstraintViolationException) {
+				addErrorMessage(sprint.getName() + " already exists");
+				logger.warn(e);
+			}
 		}
 	}
 	
@@ -156,7 +155,7 @@ public class SprintMB extends BaseBean
 			if (projects == null) {
 				projects = new ArrayList<Project>();
 			}
-			return projectService.searchBy(query.trim().toUpperCase());			
+			return projectService.searchBy(query);			
 		} catch ( Exception e ) {
 			addErrorMessage(e.getMessage());
 			logger.error(e);

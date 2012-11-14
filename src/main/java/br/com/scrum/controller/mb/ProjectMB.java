@@ -17,7 +17,6 @@ import br.com.scrum.entity.User;
 import br.com.scrum.service.ProjectService;
 import br.com.scrum.service.UserService;
 import br.com.scrum.util.exception.BusinessException;
-import br.com.scrum.util.exception.ObjectAlreadyExistsException;
 
 @SuppressWarnings("serial")
 @Named
@@ -43,7 +42,7 @@ public class ProjectMB extends BaseBean
 	
 	public void createOrSave() 
 	{
-		try {			
+		try {
 			if (project.getId() == null) {
 				projectService.create(project);
 				project = new Project();
@@ -53,12 +52,8 @@ public class ProjectMB extends BaseBean
 				addInfoMessage("project successfully updated");
 			}
 			findAll();
-		} catch (ObjectAlreadyExistsException be) {
-			addErrorMessage(null, be.getMessage().toString());	
-			logger.warn(be);
-		} catch ( Exception e ) {
-			addErrorMessage("unexcepted error has ocurred");
-			logger.error(e);
+		} catch (Exception e) {
+			addErrorMessage(e.getMessage());
 		}
 	}
 

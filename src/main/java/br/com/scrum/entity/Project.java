@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +24,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.scrum.entity.enums.Const;
@@ -30,17 +33,27 @@ import br.com.scrum.util.exception.BusinessException;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "PROJECT", schema = Const.SCHEMA, uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"NAME"})
-		})
+@Table(name = "PROJECT",
+	   schema = Const.SCHEMA,
+	   uniqueConstraints = { @UniqueConstraint(columnNames = {"NAME"}) })
+//@Cacheable
 @NamedQueries({
-	@NamedQuery(name = "Project.getByName",
-				query = "from Project p where upper(p.name) like name or p.id = :id or upper(p.company) like company")
-	})
+	@NamedQuery(name = Project.GET_BY_NAME,
+				query = "from Project p where upper(p.name) like :name"),
+
+	@NamedQuery(name = Project.GET_BY_NAME_OR_COMPANY,
+				query = "from Project p where upper(p.name) like :name or upper(p.company) like :company")
+
+	//				hints = {
+	//				@QueryHint(name="org.hibernate.cacheable", value="true"),
+	//				@QueryHint(name="org.hibernate.cacheRegion", value = Project.GET_BY_NAME_OR_COMPANY)}
+})
 public class Project implements Serializable 
 {	
 	public static final String NAME = "name"; 
 	public static final String COMPANY = "company";
+	public static final String GET_BY_NAME = "Project.getByName";
+	public static final String GET_BY_NAME_OR_COMPANY = "Project.getByNameOrCompany";
 	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,9 +77,11 @@ public class Project implements Serializable
 	private String company;
 	
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	private List<Sprint> sprints;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
+//	@LazyCollection(LazyCollectionOption.EXTRA)
 	@JoinTable(name = "user_project", schema = Const.SCHEMA,
 	joinColumns = { @JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID") },
 	inverseJoinColumns = { @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID") })

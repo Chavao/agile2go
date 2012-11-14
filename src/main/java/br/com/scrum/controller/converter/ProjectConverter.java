@@ -20,7 +20,7 @@ public class ProjectConverter implements Converter
 	public Object getAsObject(FacesContext context, UIComponent component, String value)
 	{
 		return value == null || value.trim().isEmpty() ? 
-			null : service.withId(Integer.parseInt(value));
+			null : service.findById(Integer.parseInt(value));
 	}
 
 	@Override

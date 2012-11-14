@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.scrum.entity.enums.Const;
@@ -30,16 +32,19 @@ import br.com.scrum.util.exception.BusinessException;
 @Entity
 @Table(name = "SPRINT", schema = Const.SCHEMA)
 @NamedQueries({
-		@NamedQuery(name="Sprint.getLastId",
-					query="from Sprint s where s.id = (select max(s.id) from Sprint s)"),
+		@NamedQuery(name = Sprint.GET_LAST_ID,
+					query = "from Sprint s where s.id = (select max(s.id) from Sprint s)"),
 					
-		@NamedQuery(name="Sprint.getByName",
-					query="from Sprint s where upper(s.name) like ?")
+		@NamedQuery(name = Sprint.GET_BY_NAME,
+					query = "from Sprint s where upper(s.name) like name")
 		})
 public class Sprint implements Serializable 
 {	
 	public static final String ID = "id";
 	public static final String NAME = "name";
+	
+	public static final String GET_BY_NAME = "Sprint.getByName";
+	public static final String GET_LAST_ID = "Sprint.getLastId";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,6 +76,7 @@ public class Sprint implements Serializable
 	private Project project = new Project();	
 	
 	@OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	private List<Task> tasks = new ArrayList<Task>();
 
 	public Sprint() 

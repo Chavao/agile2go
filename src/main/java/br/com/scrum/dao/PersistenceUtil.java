@@ -6,10 +6,13 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 import org.jboss.logging.Logger;
 
 @SuppressWarnings("serial")
@@ -28,7 +31,7 @@ public abstract class PersistenceUtil implements Serializable
 		getEntityManager.remove(entity);
 	}
 	
-	protected <T> void save(final T entity)
+	protected <T> void save(final T entity) throws PersistenceException, ConstraintViolationException
 	{
 		if (getEntityManager == null)
 		{
@@ -98,6 +101,14 @@ public abstract class PersistenceUtil implements Serializable
 			query.setParameter(i++, "%" + o + "%");
 		}
 		return query.getResultList();
+	}
+	
+	protected void evictCache(String region)
+	{
+		((Session)getEntityManager.getDelegate())
+					              .getSessionFactory()
+					              .getCache()
+					              .evictQueryRegion(region);
 	}
 	
 	protected Class<?> getObjectClass(final Object type) throws IllegalArgumentException

@@ -3,7 +3,6 @@ package br.com.scrum.service;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 
 import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.Sprint;
@@ -15,36 +14,37 @@ public class SprintService extends PersistenceUtil
 	public void create(Sprint sprint) throws Exception 
 	{
 		try {
-			if (sprintNameAlreadyExists(sprint))
+			if (sprintAlreadyExists(sprint))
 				throw new ObjectAlreadyExistsException(sprint.getName() + " already exists");
-			super.create(sprint);			
+			super.create(sprint);
+//			evictCache(Sprint.GET_BY_NAME);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
+
 	public void save(Sprint sprint) throws Exception
 	{
 		try {
-			if (sprintNameAlreadyExists(sprint))
+			if (sprintAlreadyExists(sprint))
 				throw new ObjectAlreadyExistsException(sprint.getName() + " already exists");
-			super.save(sprint);			
+			super.save(sprint);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
+
 	public void delete(Sprint sprint) 
 	{
 		super.delete(getEntityManager.getReference(Sprint.class, sprint.getId()));			
 	}
-	
-	private boolean sprintNameAlreadyExists(Sprint sprint)
+
+	private boolean sprintAlreadyExists(Sprint sprint)
 	{
-		TypedQuery<Sprint> query = getEntityManager.createQuery("from Sprint s where s.name = :name", Sprint.class);
-		query.setParameter(Sprint.NAME, sprint.getName());
 		try {
-			return query.getSingleResult() != null;
+			return getEntityManager.createNamedQuery(Sprint.GET_BY_NAME, Sprint.class)
+					.setParameter(Sprint.NAME, "%" + sprint.getName().trim() + "%")
+					.getResultList() != null;
 		}
 		catch (NoResultException e) {
 			return false;
@@ -63,13 +63,13 @@ public class SprintService extends PersistenceUtil
 	public List<Sprint> searchBy(String query) 
 	{
 		try {
-			return super.findByNamedQuery("Sprint.getByName", query.toUpperCase());
+			return getEntityManager.createNamedQuery(Sprint.GET_BY_NAME, Sprint.class)
+					.setParameter(Sprint.NAME, "%" + query.trim().toUpperCase() + "%")
+					.getResultList();
 		} catch (NoResultException nre) {
 			logger.warn("No sprint found with paramters [" + query + "] " + nre);
-		} catch (Exception e) {
-			logger.error("Error fetching the sprint " + e);
 		}
 		return null;
 	}
-	
+
 }
