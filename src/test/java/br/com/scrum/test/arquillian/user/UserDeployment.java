@@ -3,7 +3,7 @@ package br.com.scrum.test.arquillian.user;
 //
 //import org.jboss.shrinkwrap.api.spec.WebArchive;
 //
-//import br.com.scrum.dao.PersistenceUtil;
+//import br.com.scrum.repository.PersistenceUtil;
 //import br.com.scrum.entity.User;
 //import br.com.scrum.entity.enums.UserRole;
 //import br.com.scrum.service.UserService;

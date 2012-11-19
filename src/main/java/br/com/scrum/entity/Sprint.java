@@ -36,7 +36,7 @@ import br.com.scrum.util.exception.BusinessException;
 					query = "from Sprint s where s.id = (select max(s.id) from Sprint s)"),
 					
 		@NamedQuery(name = Sprint.GET_BY_NAME,
-					query = "from Sprint s where upper(s.name) like name")
+					query = "from Sprint s where upper(s.name) like name order by s.name")
 		})
 public class Sprint implements Serializable 
 {	
@@ -80,7 +80,16 @@ public class Sprint implements Serializable
 	private List<Task> tasks = new ArrayList<Task>();
 
 	public Sprint() 
-	{}		
+	{}
+	
+	public Sprint(String name, Date startDate, Date endDate, String dayScrum, String goal) 
+	{
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.dailyScrum = dayScrum;
+		this.goal = goal;
+	}
 	
 	public void addTask(Task task) throws BusinessException
 	{

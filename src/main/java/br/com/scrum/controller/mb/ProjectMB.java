@@ -1,7 +1,6 @@
 package br.com.scrum.controller.mb;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -46,26 +45,25 @@ public class ProjectMB extends BaseBean
 			if (project.getId() == null) {
 				projectService.create(project);
 				project = new Project();
-				addInfoMessage("project successfully created");
+				addInfoMsg("project.successfully_created");
 			} else {
 				projectService.save(project);
-				addInfoMessage("project successfully updated");
+				addInfoMsg("project.successfully_updated");
 			}
 			findAll();
 		} catch (Exception e) {
-			addErrorMessage(e.getMessage());
+			addErrorMsgFromException(e);
 		}
 	}
 
 	public void delete() 
 	{		
 		try {
-			logger.infof(project.getName() + " is being deleted ", new Date());
 			projectService.delete(project);	
 			findAll();
-			addInfoMessage("project removed");
-		} catch ( Exception e ) {
-			addErrorMessage(e.getMessage());
+			addInfoMsg("project.successfully_removed");
+		} catch (Exception e) {
+			addErrorMsgFromException(e);
 			logger.error(e);
 		}		
 	}
@@ -76,13 +74,13 @@ public class ProjectMB extends BaseBean
 			if (membership != null && membership.getId() != null) {
 				project.addUser(membership);
 				membership = new User();
-				addInfoMessage("membership successfully added");
+				addInfoMsg("membership.successfully_added");
 			}
 		} catch (BusinessException be) {
-			addErrorMessage(be.getMessage());
+			addErrorMsgFromException(be);
 			logger.warn(be);
 		} catch (Exception e) {
-			addErrorMessage(e.getMessage());
+			addErrorMsgFromException(e);
 			logger.error(e);
 		}
 	}
@@ -91,7 +89,7 @@ public class ProjectMB extends BaseBean
 	{
 		project.removeUser(membership);
 		membership = new User();
-		addInfoMessage("membership successfully removed");
+		addInfoMsg("membership.successfully_removed");
 	}
 	
 	public String redirectToEdit()

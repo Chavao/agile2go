@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
-import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.Sprint;
 import br.com.scrum.entity.Task;
+import br.com.scrum.repository.PersistenceUtil;
 
 @SuppressWarnings("serial")
 public class TaskService extends PersistenceUtil

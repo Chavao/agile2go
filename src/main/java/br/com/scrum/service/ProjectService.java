@@ -1,6 +1,7 @@
 package br.com.scrum.service;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -8,13 +9,14 @@ import javax.persistence.NoResultException;
 
 import org.jboss.solder.exception.control.ExceptionToCatch;
 
-import br.com.scrum.dao.PersistenceUtil;
 import br.com.scrum.entity.Project;
+import br.com.scrum.repository.PersistenceUtil;
 
 @SuppressWarnings("serial")
 public class ProjectService extends PersistenceUtil
 {	
 	@Inject Event<ExceptionToCatch> catchEvent;
+//	@Inject private transient ResourceBundle bundle;
 	
 	public void create(Project project)
 	{
@@ -29,7 +31,16 @@ public class ProjectService extends PersistenceUtil
 
 	public void save(Project project) 
 	{	
-		super.save(project);
+		try {
+			super.save(project);
+		} catch (Exception e) {
+			try {
+				throw e;
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 
 	public void delete(Project project) throws Exception

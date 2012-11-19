@@ -5,7 +5,7 @@ package br.com.scrum.test.arquillian.project;
 //
 //import br.com.scrum.domain.entity.Project;
 //import br.com.scrum.service.ProjectService;
-//import br.com.scrum.dao.PersistenceUtil;
+//import br.com.scrum.repository.PersistenceUtil;
 //import br.com.scrum.test.Agile2GoDeployment;
 //
 //public class ProjectDeployment

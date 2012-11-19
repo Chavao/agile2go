@@ -39,13 +39,13 @@ public class MembershipMB extends BaseBean
 			} else {
 				userService.save(membership);
 			}
-			addInfoMessage("membership successfully created");
+			addInfoMsg("membership.successfully_created");
 			findAll();
 		} catch (ObjectAlreadyExistsException oaee) {
-			addErrorMessage(oaee.getMessage());
+			addErrorMsgFromException(oaee);
 			logger.error(oaee);
 		} catch (Exception e) {
-			addErrorMessage(e.getMessage());
+			addErrorMsgFromException(e);;
 			logger.error(e);
 		}
 	}
@@ -55,9 +55,9 @@ public class MembershipMB extends BaseBean
 		try {
 			userService.delete(membership);
 			findAll();
-			addInfoMessage("membership removed");
+			addInfoMsg("membership.successfully_deleted");
 		} catch ( Exception e ) {
-			addErrorMessage(e.getMessage());
+			addErrorMsgFromException(e);
 			logger.error(e);
 		}
 	}

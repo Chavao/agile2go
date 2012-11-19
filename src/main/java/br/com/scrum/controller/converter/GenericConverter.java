@@ -10,6 +10,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+/**
+ * @author rafael
+ * <p>
+ * 	This converter is for combo box and stuffs. This is not for autoCompletes
+ * </p>
+ */
 @FacesConverter(value = "genericConverter")
 public class GenericConverter implements Converter
 {

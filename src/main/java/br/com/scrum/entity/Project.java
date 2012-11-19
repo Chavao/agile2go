@@ -78,10 +78,10 @@ public class Project implements Serializable
 	
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.EXTRA)
-	private List<Sprint> sprints;
+	private List<Sprint> sprints = new ArrayList<Sprint>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-//	@LazyCollection(LazyCollectionOption.EXTRA)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@JoinTable(name = "user_project", schema = Const.SCHEMA,
 	joinColumns = { @JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID") },
 	inverseJoinColumns = { @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID") })
@@ -89,10 +89,18 @@ public class Project implements Serializable
 	
 	public Project() 
 	{}
-
+	
 	public Project(String name) 
 	{
 		this.name = name;
+	}
+	
+	public Project(String name, String description, Date lastDate, String company)
+	{
+		this.name = name;
+		this.description = description;
+		this.lastDate = lastDate;
+		this.company = company;
 	}
 	
 	public void addUser(User membership) throws BusinessException

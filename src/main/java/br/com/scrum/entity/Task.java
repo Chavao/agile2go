@@ -63,6 +63,14 @@ public class Task implements Serializable
 	public Task() 
 	{}
 	
+	public Task(String story, Integer priority, String hours, Status status) 
+	{
+		this.storie = story;
+		this.priority = priority;
+		this.hours = hours;
+		this.status = status;
+	}
+	
 	public Integer getId() 
 	{
 		return id;

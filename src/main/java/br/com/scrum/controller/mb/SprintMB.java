@@ -55,15 +55,15 @@ public class SprintMB extends BaseBean
 			if ( sprint.getId() == null ) {
 				sprintService.create(sprint);
 				sprint = new Sprint();
-				addInfoMessage("sprint successfully created");				
+				addInfoMsg("sprint.successfully_created");				
 			} else {
 				sprintService.save(sprint);
-				addInfoMessage("sprint successfully saved");
+				addInfoMsg("sprint.successfully_updated");
 			}
 			findAll();
 		} catch (Exception e) {
 			if (e.getCause() instanceof ConstraintViolationException) {
-				addErrorMessage(sprint.getName() + " already exists");
+				addErrorMsg("sprint.already_exists", sprint.getName());
 				logger.warn(e);
 			}
 		}
@@ -73,11 +73,11 @@ public class SprintMB extends BaseBean
 	{
 		notOk = false;
 		if (sprint.getStartDate().after(new Date())) {
-			addErrorMessage("you can not create a sprint with the start date after today");
+			addErrorMsg("sprint.start_date_is_after_today");
 			notOk = true;
 		}
 		if (sprint.getEndDate().before(sprint.getStartDate())) {
-			addErrorMessage("you can not create a sprint with the end date before the start date");
+			addErrorMsg("sprint.end_date_is_before_today");
 			notOk = true;
 		}
 		return notOk;
@@ -88,9 +88,9 @@ public class SprintMB extends BaseBean
 		try {
 			sprintService.delete(sprint);
 			findAll();
-			addInfoMessage("sprint removed");
-		} catch ( Exception e ) {
-			addErrorMessage(e.getMessage());
+			addInfoMsg("sprint.successfully_deleted");
+		} catch (Exception e) {
+			addErrorMsgFromException(e);
 			logger.error(e);
 		}		
 	}
@@ -106,13 +106,13 @@ public class SprintMB extends BaseBean
 			if (task != null && task.getId() != null) {
 				sprint.addTask(task);
 				task = new Task();
-				addInfoMessage("task successfully added");
+				addInfoMsg("task.successfully_added");
 			}
 		} catch (BusinessException be) {
-			addErrorMessage(be.getMessage());
+			addErrorMsgFromException(be);
 			logger.warn(be);
 		} catch (Exception e) {
-			addErrorMessage(e.getMessage());
+			addErrorMsgFromException(e);
 			logger.error(e);
 		}
 	}
@@ -121,7 +121,7 @@ public class SprintMB extends BaseBean
 	{
 		sprint.removeTask(task);
 		task = new Task();
-		addInfoMessage("task successfully removed");
+		addInfoMsg("task.successfully_removed");
 	}
 	
 	public String redirectToEdit()
@@ -157,7 +157,7 @@ public class SprintMB extends BaseBean
 			}
 			return projectService.searchBy(query);			
 		} catch ( Exception e ) {
-			addErrorMessage(e.getMessage());
+			addErrorMsgFromException(e);
 			logger.error(e);
 		}
 		return projects = new ArrayList<Project>();

@@ -24,11 +24,11 @@
 	<dependencies>
 
 		<!-- comment this when openshift is being used -->
-       <dependency>
+		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>8.4-702.jdbc4</version>
-        </dependency>
+		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -123,29 +123,13 @@
 		</dependency>
 
 		<!-- seam-persistence -->
-		<dependency>
-			<groupId>org.jboss.seam.persistence</groupId>
-			<artifactId>seam-persistence</artifactId>
-			<version>3.1.0.Final</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.jboss.solder</groupId>
-					<artifactId>solder-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.jboss.solder</groupId>
-					<artifactId>solder-impl</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.jboss.seam.transaction</groupId>
-					<artifactId>seam-transaction</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.jboss.seam.transaction</groupId>
-					<artifactId>seam-transaction-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+		<!-- <dependency> <groupId>org.jboss.seam.persistence</groupId> <artifactId>seam-persistence</artifactId> 
+			<version>3.1.0.Final</version> <exclusions> <exclusion> <groupId>org.jboss.solder</groupId> 
+			<artifactId>solder-api</artifactId> </exclusion> <exclusion> <groupId>org.jboss.solder</groupId> 
+			<artifactId>solder-impl</artifactId> </exclusion> <exclusion> <groupId>org.jboss.seam.transaction</groupId> 
+			<artifactId>seam-transaction</artifactId> </exclusion> <exclusion> <groupId>org.jboss.seam.transaction</groupId> 
+			<artifactId>seam-transaction-api</artifactId> </exclusion> </exclusions> 
+			</dependency> -->
 
 		<!-- hibernate -->
 		<dependency>
@@ -158,6 +142,12 @@
 			<artifactId>hibernate-validator</artifactId>
 			<scope>provided</scope>
 			<version>4.3.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<scope>provided</scope>
+			<version>4.1.8.Final</version>
 		</dependency>
 
 		<!-- seam-security -->
@@ -195,20 +185,12 @@
 		</dependency>
 
 		<!-- prettyfaces -->
-		<dependency>
-			<groupId>com.ocpsoft</groupId>
-			<artifactId>prettyfaces-jsf2</artifactId>
-			<version>3.3.3</version>
-			<scope>compile</scope>
-		</dependency>
+		<!-- <dependency> <groupId>com.ocpsoft</groupId> <artifactId>prettyfaces-jsf2</artifactId> 
+			<version>3.3.3</version> <scope>compile</scope> </dependency> -->
 
 		<!-- drools -->
-		<dependency>
-			<groupId>org.drools</groupId>
-			<artifactId>knowledge-api</artifactId>
-			<version>5.4.0.Final</version>
-			<scope>compile</scope>
-		</dependency>
+		<!-- <dependency> <groupId>org.drools</groupId> <artifactId>knowledge-api</artifactId> 
+			<version>5.4.0.Final</version> <scope>compile</scope> </dependency> -->
 
 		<!-- seam faces -->
 		<dependency>
@@ -243,11 +225,16 @@
 			<artifactId>arquillian-protocol-servlet</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5-rc1</version>
 		</dependency>
 
 		<dependency>
@@ -316,16 +303,16 @@
 				<version>1.0.0-beta-1</version>
 			</plugin>
 
-			<!-- To use, run: mvn package jboss-as:deploy configure, stop, undeploy,
-				hard-deploy, start, startAndWait, hardundeploy, redeploy, hard-undeploy,
+			<!-- To use, run: mvn package jboss-as:deploy configure, stop, undeploy, 
+				hard-deploy, start, startAndWait, hardundeploy, redeploy, hard-undeploy, 
 				help, start-and-wait, deploy, wait-app-start, harddeploy -->
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
 				<version>7.1.1.Final</version>
 
-                <!-- comment this when openshift is being used -->
-                <executions>
+				<!-- comment this when openshift is being used -->
+				<executions>
 					<execution>
 						<id>deploy-driver</id>
 						<phase>package</phase>
@@ -361,8 +348,8 @@
 							</resource>
 						</configuration>
 					</execution>
-                </executions>
- 			</plugin>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -399,11 +386,11 @@
 			</build>
 		</profile>
 		<profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when
+			<!-- When built in OpenShift the 'openshift' profile will be used when 
 				invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app
+			<!-- Use this profile for any OpenShift specific customization your app 
 				will need. -->
-			<!-- By default that is to put the resulting archive into the 'deployments'
+			<!-- By default that is to put the resulting archive into the 'deployments' 
 				folder. -->
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
@@ -422,9 +409,9 @@
 			</build>
 		</profile>
 		<profile>
-			<!-- An optional Arquillian testing profile that executes tests in your
+			<!-- An optional Arquillian testing profile that executes tests in your 
 				JBoss AS instance -->
-			<!-- This profile will start a new JBoss AS instance, and execute the
+			<!-- This profile will start a new JBoss AS instance, and execute the 
 				test, shutting it down when done -->
 			<!-- Run with: mvn clean test -Parq-jbossas-managed -->
 			<id>arq-jbossas-managed</id>
@@ -437,7 +424,7 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<!-- An optional Arquillian testing profile that executes tests in a remote
+			<!-- An optional Arquillian testing profile that executes tests in a remote 
 				JBoss AS instance -->
 			<!-- Run with: mvn clean test -Parq-jbossas-remote -->
 			<id>arq-jbossas-remote</id>

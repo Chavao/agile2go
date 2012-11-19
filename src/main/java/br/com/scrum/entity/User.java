@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -38,6 +39,7 @@ public class User implements Serializable
 	private Integer id;
 
 	@NotBlank(message = "name is required field")
+	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	@Column(name = "NAME", nullable = false, length = 60)
 	private String name;
 

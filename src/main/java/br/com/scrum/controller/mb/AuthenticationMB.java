@@ -45,9 +45,9 @@ public class AuthenticationMB extends BaseBean
 	{
 		if (!userLogged.isLoggedIn()) 
 		{
+			addErrorMsg("auth.user_not_found", user.getLogin());
 			user.setLogin("");
 			user.setPassword("");
-			addLoginErrorMessage("User not found!");
 			redirectToViewId("/login.jsf");
 		}
 	}
@@ -61,11 +61,6 @@ public class AuthenticationMB extends BaseBean
 		{ e.printStackTrace(); }
 	}
 	
-	public void addLoginErrorMessage(String infoMessage) 
-	{
-		addErrorMessage(infoMessage);
-	}
-
 	public User getUser()
 	{
 		return user;

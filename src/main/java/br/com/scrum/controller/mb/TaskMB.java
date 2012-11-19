@@ -8,8 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.hibernate.exception.ConstraintViolationException;
+import javax.persistence.PersistenceException;
 
 import br.com.scrum.entity.Sprint;
 import br.com.scrum.entity.Task;
@@ -44,16 +43,16 @@ public class TaskMB extends BaseBean
 				task.setStatus(Status.INPROGRESS);
 				taskService.save(task);
 				task = new Task();
-				addInfoMessage("task successfully created");
+				addInfoMsg("task.successfully_created");
 			} else {
 				taskService.save(task);
-				addInfoMessage("task successfully updated");
+				addInfoMsg("task.successfully_updated");
 			}
 			findAll();
-		} catch ( ConstraintViolationException pe ) {
-			addInfoMessage("task already exists");			
-		} catch ( Exception e ) {
-			addErrorMessage("unexcepted error has ocurred");
+		} catch (PersistenceException pe) {
+			addWarnMsg("task.already exists", "#"+task.getId());			
+		} catch (Exception e) {
+			addErrorMsgFromException(e);
 		}			
 	}
 
@@ -62,9 +61,9 @@ public class TaskMB extends BaseBean
 		try {
 			taskService.delete(task);
 			findAll();
-			addInfoMessage("task romoved");
-		} catch ( Exception e ) {
-			addErrorMessage(e.getMessage());
+			addInfoMsg("task.successfully_deleted");
+		} catch (Exception e) {
+			addErrorMsgFromException(e);
 		}		
 	}
 	
@@ -87,8 +86,8 @@ public class TaskMB extends BaseBean
 				sprints = new ArrayList<Sprint>();
 			}
 			return sprintService.searchBy(query);			
-		} catch ( Exception e ) {
-			addErrorMessage(e.getMessage());
+		} catch (Exception e) {
+			addErrorMsgFromException(e);
 		}
 		return sprints = new ArrayList<Sprint>();
 	}
