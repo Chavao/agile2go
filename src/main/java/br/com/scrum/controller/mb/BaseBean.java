@@ -17,9 +17,7 @@ public abstract class BaseBean implements Serializable
 {		
 	@Inject protected Logger logger;
 	
-	@Inject
-	@BundleForMsg
-	private ResourceBundle bundle;
+	@Inject @BundleForMsg private transient ResourceBundle bundle;
 	
 	protected void addErrorMsg(String key, Object... args)
 	{

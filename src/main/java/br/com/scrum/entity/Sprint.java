@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -75,8 +76,8 @@ public class Sprint implements Serializable
 	@JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")	
 	private Project project = new Project();	
 	
-	@OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = true)
-	@LazyCollection(LazyCollectionOption.EXTRA)
+	@OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//	@LazyCollection(LazyCollectionOption.EXTRA)
 	private List<Task> tasks = new ArrayList<Task>();
 
 	public Sprint() 

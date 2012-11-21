@@ -33,7 +33,7 @@ public final class Const {
 	public static final String LIST_SPRINT = "/pages/project/list_sprint.jsf?faces-redirect=true";
 	
 		
-	public static final String PROPERTIES_PATH = "br.com.scrum.mensagens.messages_en_US";
+	public static final String PROPERTIES_PATH = "br.com.scrum.messages.messages_en_US";
 
 	
 }

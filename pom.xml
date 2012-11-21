@@ -122,14 +122,29 @@
 			</exclusions>
 		</dependency>
 
-		<!-- seam-persistence -->
-		<!-- <dependency> <groupId>org.jboss.seam.persistence</groupId> <artifactId>seam-persistence</artifactId> 
-			<version>3.1.0.Final</version> <exclusions> <exclusion> <groupId>org.jboss.solder</groupId> 
-			<artifactId>solder-api</artifactId> </exclusion> <exclusion> <groupId>org.jboss.solder</groupId> 
-			<artifactId>solder-impl</artifactId> </exclusion> <exclusion> <groupId>org.jboss.seam.transaction</groupId> 
-			<artifactId>seam-transaction</artifactId> </exclusion> <exclusion> <groupId>org.jboss.seam.transaction</groupId> 
-			<artifactId>seam-transaction-api</artifactId> </exclusion> </exclusions> 
-			</dependency> -->
+	<dependency>
+		<groupId>org.jboss.seam.persistence</groupId>
+		<artifactId>seam-persistence</artifactId>
+		<version>3.1.0.Final</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.jboss.solder</groupId>
+				<artifactId>solder-api</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.jboss.solder</groupId>
+				<artifactId>solder-impl</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.jboss.seam.transaction</groupId>
+				<artifactId>seam-transaction</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.jboss.seam.transaction</groupId>
+				<artifactId>seam-transaction-api</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
 
 		<!-- hibernate -->
 		<dependency>

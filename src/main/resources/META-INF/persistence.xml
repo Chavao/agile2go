@@ -17,6 +17,10 @@
 
 		<!-- comment this when openshift is being used -->
        <jta-data-source>java:jboss/datasources/postgresDS</jta-data-source>
+       <class>br.com.scrum.entity.Project</class>
+       <class>br.com.scrum.entity.Sprint</class>
+       <class>br.com.scrum.entity.User</class>
+       <class>br.com.scrum.entity.Task</class>
 
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />

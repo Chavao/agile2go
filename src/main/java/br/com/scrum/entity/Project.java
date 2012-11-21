@@ -76,12 +76,12 @@ public class Project implements Serializable
 	@Column(name = "COMPANY", nullable = false, length = 60)
 	private String company;
 	
-	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-	@LazyCollection(LazyCollectionOption.EXTRA)
-	private List<Sprint> sprints = new ArrayList<Sprint>();
+//	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+////	@LazyCollection(LazyCollectionOption.EXTRA)
+//	private List<Sprint> sprints = new ArrayList<Sprint>();
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@LazyCollection(LazyCollectionOption.EXTRA)
+	@ManyToMany //(fetch = FetchType.EAGER)
+//	@LazyCollection(LazyCollectionOption.EXTRA)
 	@JoinTable(name = "user_project", schema = Const.SCHEMA,
 	joinColumns = { @JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID") },
 	inverseJoinColumns = { @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID") })
@@ -130,8 +130,8 @@ public class Project implements Serializable
 			Iterator<User> it = users.iterator();
 			while (it.hasNext()) {
 				User member = (User) it.next();
-				if (member.getName().equalsIgnoreCase(membership.getName()) &&
-					member.getRole().equals(membership.getRole())) {
+				if (membership.getName().equalsIgnoreCase(member.getName()) &&
+					membership.getRole_().equals(member.getRole_())) {
 					it.remove();
 					break;
 				}
@@ -189,15 +189,15 @@ public class Project implements Serializable
 		this.company = company;
 	}				
 	
-	public List<Sprint> getSprints() 
-	{
-		return sprints;
-	}
-
-	public void setSprints(List<Sprint> sprints) 
-	{
-		this.sprints = sprints;
-	}
+//	public List<Sprint> getSprints() 
+//	{
+//		return sprints;
+//	}
+//
+//	public void setSprints(List<Sprint> sprints) 
+//	{
+//		this.sprints = sprints;
+//	}
 		
 	public List<User> getUsers() {
 		return users;
